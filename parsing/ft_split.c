@@ -70,25 +70,16 @@ char	**ft_decoupe(char **tab, char *str, int k, char c)
 			j++;
 			k = 0;
 		}
-        // else if (str[i] == c && str[i - 1] != c)
-        // {
-        //     i++;
-        // }
-		// else if(str[i] == c && str[i - 1] == c)
-        // {
-        //       if(str[i] == c)
-        //     {
-        //         tab[j] = malloc(sizeof(char) * 2);
-        //         if (!tab)
-		// 		    return (ft_free(tab, j));
-        //         tab[j][0] = c;
-        //         tab[j][1] = 0;
-        //         j++;
-        //     }
-		// 	i++;
-        // }
         else
+		{
+			if (str[i] == '\n' && str[i - 1] == '\n')
+			{
+				tab[j] = malloc(sizeof(char) * 1);
+				tab[j][0] = '\0';
+				j++;
+			}
             i++;
+		}
 	}
 	tab[j] = NULL;
 	return (tab);

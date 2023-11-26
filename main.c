@@ -55,24 +55,8 @@ int	main(int ac, char **argv, char **env)
 	if (!env)
 		return (1);
 	if (ac != 2)
-		return (1);
+		return (printf("Pas assez d'arguments"), 1);
 	if (ft_parsing(argv) == 1)
 		return (1);
-	// int fd;
-	// char *map;
-	// char *tmp;
-	// map = NULL;
-	// fd = open(argv[1], O_RDONLY);
-	// if (fd == -1)
-	//     return(1);
-	// map = get_next_line(fd);
-	// while (1)
-	// {
-	//     tmp = get_next_line(fd);
-	//     map = ft_strjoin(map, tmp);
-	//     free(tmp);
-	//     if(tmp == NULL)
-	//         break ;
-	// }
     return(0);
 }
