@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 00:04:37 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/11/26 00:55:58 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/11/26 18:47:32 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,32 +70,51 @@ char	**ft_decoupe(char **tab, char *str, int k, char c)
 			j++;
 			k = 0;
 		}
-        else
+		else
 		{
-			if (str[i] == '\n' && str[i - 1] == '\n')
+			if (i != 0 && str[i - 1] == '\n' && str[i] == '\n' )
 			{
-				tab[j] = malloc(sizeof(char) * 1);
+				tab[j] = malloc(sizeof(char) * 4);
+				if (!tab)
+					return (ft_free(tab, j));
 				tab[j][0] = '\0';
 				j++;
 			}
-            i++;
+			i++;
 		}
 	}
 	tab[j] = NULL;
 	return (tab);
 }
 
+int		count_line(char *str)
+{
+	int i;
+	int j;
+
+	j = 0;
+	i = 0;
+	if (!str)
+		return(0);
+	while(str[i])
+	{
+		if (i != 0 && str[i - 1] == '\n' && str[i] == '\n' )
+			j++;
+		i++;
+	}
+	return(j);
+}
 char	**ft_split(char const *s, char c)
 {
-	int		k;
-	char	**tab;
-	char	*str;
+	int k;
+	char **tab;
+	char *str;
 
 	k = 0;
 	if (s == NULL)
 		return (NULL);
 	str = (char *)s;
-	tab = malloc(sizeof(char *) * (ft_strtab(str, c) + 1));
+	tab = malloc(sizeof(char *) * ((ft_strtab(str, c)) + (count_line(str)) + (1)));
 	if (!tab)
 		return (NULL);
 	return (ft_decoupe(tab, str, k, c));
