@@ -196,10 +196,14 @@ int	ft_parsing(char **argv, t_cub *cub)
 
     cub->map = copy_map2(argv);
     cub->map2 = ft_split2(cub->map, '\n');
-	if (check_id(&*cub) == 0)
+	if (check_id(&*cub) == 1)
 	{
-		printf("on est bon gros---->\n");
+		//free ici;
+		dprintf(2, "Pas les bons identifiants mon reuf\n");
+		exit(1);
 	}
+	
+	printf("on est bon gros---->\n");
 	
 	
 	while(cub->map2[i])
