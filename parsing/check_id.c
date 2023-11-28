@@ -1,0 +1,195 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_id.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/28 02:46:42 by cabouzir          #+#    #+#             */
+/*   Updated: 2023/11/28 05:04:43 by cabouzir         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../cub3d.h"
+
+int verif_line(char *tmp)
+{
+	int i;
+
+	i = 0;
+	while(tmp && tmp[i])
+	{
+		if(tmp[i] != ' ' && tmp[i] != '\t' && tmp[i + 1] != '\0')
+			return(0);
+		i++;
+	}
+	return(1);
+}
+
+int	check_before(t_cub *cub, int i, int j)
+{
+	if(j == 0)
+		return(0);
+	if (j == 1)
+	{
+		if (cub->map2[i][j - 1] != ' ' && cub->map2[i][j - 1] != '\t')
+			return(1);
+		else
+			return(0);
+	}
+	if (j > 1)
+		j--;
+	while (j && j >= 0)
+	{
+		if (cub->map2[i][j] != ' ' && cub->map2[i][j] != '\t')
+			return(1);
+		j--;
+	}
+	return(0);
+	
+}
+
+int check_id(t_cub *cub)
+{
+	int i;
+	int j;
+
+	j = 0;
+	i = 0;
+	while (cub->map2[i])
+	{
+		j = 0;
+		while (cub->map2[i][j])
+		{
+			if (cub->map2[i][j] == 'N' && cub->map2[i][j + 1] == 'O' && (cub->map2[i][j + 2] == ' ' || cub->map2[i][j + 2] ==  '\t'))
+			{
+				if(check_before(&*cub, i, j) == 0 && cub->line_no == 0)
+				{
+					// printf("----------------->je rentre NO\n");
+					cub->line_no = i;
+					cub->count++;
+					cub->line_no++;
+					break;
+				}
+			}
+			else if (cub->map2[i][j] == 'S' && cub->map2[i][j + 1] == 'O' && (cub->map2[i][j + 2] == ' ' || cub->map2[i][j + 2] ==  '\t'))
+			{
+				if(check_before(&*cub, i, j) == 0 && cub->line_so == 0)
+				{
+					// printf("----------------->je rentre SO\n");
+					cub->line_so = i;
+					cub->count++;
+					cub->line_so++;
+					break;
+				}
+			}
+			else if (cub->map2[i][j] == 'W' && cub->map2[i][j + 1] == 'E' && (cub->map2[i][j + 2] == ' ' || cub->map2[i][j + 2] ==  '\t'))
+			{
+				if(check_before(&*cub, i, j) == 0 && cub->line_we == 0)
+				{
+					// printf("----------------->je rentre WE\n");
+					cub->line_we = i;
+					cub->count++;
+					cub->line_we++;
+					break;
+				}
+			}
+			else if (cub->map2[i][j] == 'E' && cub->map2[i][j + 1] == 'A' && (cub->map2[i][j + 2] == ' ' || cub->map2[i][j + 2] ==  '\t'))
+			{
+				if(check_before(&*cub, i, j) == 0 && cub->line_ea == 0)
+				{
+					// printf("----------------->je rentre EA\n");
+					cub->line_ea = i;
+					cub->count++;
+					cub->line_ea++;
+					break;
+				}
+			}
+			else if (cub->map2[i][j] == 'F' && (cub->map2[i][j + 1] == ' ' || cub->map2[i][j + 1] ==  '\t'))
+			{
+				if(check_before(&*cub, i, j) == 0 && cub->line_f == 0)
+				{
+					// printf("----------------->je rentre F\n");
+					cub->line_no = i;
+					cub->count++;
+					cub->line_f++;
+					break;	
+				}
+			}
+			else if (cub->map2[i][j] == 'C' && (cub->map2[i][j + 1] == ' ' || cub->map2[i][j + 1] ==  '\t'))
+			{
+				if(check_before(&*cub, i, j) == 0 && cub->line_c == 0)
+				{
+					// printf("----------------->je rentre C\n");
+					cub->count++;
+					cub->line_c++;
+					break;
+				}
+			}
+			j++;			
+		}
+		i++;
+	}
+	// printf("--------------%d\n", cub->count);
+	if (cub->count == 6)
+	{
+		printf("--------------->good\n");
+		return(0);
+	}
+	return(1);
+}
+void    grep_last_line(t_cub *cub)
+{
+    int i;
+    int j;
+    
+    cub->last_line = malloc(sizeof(char) * 3);
+    i = 0;
+    j = 0;
+    while (cub->map2[i])
+        i++;
+    i--;
+    while(cub->map[i] && (cub->map2[i][j] == '\t' || cub->map2[i][j] == ' '))
+    {
+        j++;
+    }
+    cub->last_line[0] = cub->map2[i][j];
+    cub->last_line[1] = cub->map2[i][j + 1];
+    cub->last_line[2] = '\0';
+    printf("------%s\n", cub->last_line);
+}
+
+int	ft_parsing(char **argv, t_cub *cub)
+{
+   
+	int i = 0;
+
+    cub->map = copy_map2(argv);
+    cub->map2 = ft_split2(cub->map, '\n');
+	if (check_id(&*cub) == 1)
+	{
+		//free ici;
+		dprintf(2, "Pas les bons identifiants mon reuf\n");
+		exit(1);
+	}
+	grep_last_line(&*cub);
+    cub->map_bis = copy_map(argv, &*cub);
+    cub->map2_bis = ft_split(cub->map_bis, '\n');
+    while(cub->map2_bis[i])
+	{
+	    printf("%s\n", cub->map2_bis[i]);
+	    i++;
+	}
+	
+	i = 0;
+	while(cub->map2[i])
+	{
+	    printf("%s\n", cub->map2[i]);
+	    i++;
+	}
+	// while (i && i--)
+	// 	free(map2[i]);
+	// free(map);
+	// free(map2);
+    return(0);
+}

@@ -2,6 +2,7 @@ SRCS =	parsing/get_next_line.c \
 		parsing/get_next_line_utils.c \
 		parsing/ft_split.c \
 		parsing/ft_split2.c \
+		parsing/check_id.c \
 		main.c \
 
 
