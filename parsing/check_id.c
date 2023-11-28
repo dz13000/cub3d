@@ -158,35 +158,160 @@ void    grep_last_line(t_cub *cub)
     cub->last_line[2] = '\0';
     printf("------%s\n", cub->last_line);
 }
+int	check_fisrt_wall(t_cub *cub)
+{
+	int j;
+
+	j = 0;
+	while (cub->maps_finish[0][j])
+	{
+		if(cub->maps_finish[0][j] != '1')
+			return(1);
+		j++;
+	}
+	return(0);
+}
+
+int	check_last_wall(t_cub *cub)
+{
+	int j;
+	int i;
+
+	i = 0;
+	j = 0;
+	while(cub->maps_finish[i])
+		i++;
+	i--;
+	while (cub->maps_finish[i][j])
+	{
+		if(cub->maps_finish[i][j] != '1')
+			return(1);
+		j++;
+	}
+	return(0);
+}
+
+int	check_wall(t_cub *cub)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	// printf("-----%s\n", cub->map2_bis[i]);
+	while (cub->maps_finish[i])
+	{
+		j = 0;
+		while (cub->maps_finish[i][j] && (cub->maps_finish[i][j] == ' ' || cub->maps_finish[i][j] == '\t'))
+			j++;
+		printf("----->>%c\n", cub->maps_finish[i][j]);
+		printf("----->>>>%s\n", cub->maps_finish[i]);
+		if(cub->maps_finish[i][j] != '1')
+		{
+			printf("----->>>%s\n", cub->maps_finish[i]);
+			puts("je rentre\n");
+			return(1);
+		}
+		i++;
+	}
+	return(0);
+}
+
+int	verif_map(t_cub *cub)
+{
+	// if(check_fisrt_wall(&*cub) == 1)
+	// 	return(1);
+	// if(check_last_wall(&*cub) == 1)
+	// 	return(1);
+	if(check_wall(&*cub) == 1)
+		return(1);
+	return(0);
+}
+
+int verif_line2(char *tmp)
+{
+	int i;
+
+	i = 0;
+	if(!tmp || tmp[0] == '\0')
+		return(1);
+	while(tmp && tmp[i])
+	{
+		if(tmp[i] != ' ' && tmp[i] != '\t')
+			return(0);
+		i++;
+	}
+	return(1);
+}
+
+char **split_map(char **tab)
+{
+	int	i;
+	int	j;
+	char **map;
+
+	i = 0;
+	j = 0;
+	while(tab[i])
+		i++;
+	i--;
+	while (i >= 0)
+	{
+		if(verif_line2(tab[i]) == 0)
+			break;
+		i--;
+	}
+	map = malloc(sizeof(char**) * (i + 1));
+	j = i;
+	i = 0;
+	while(i <= j)
+	{
+		map[i] = ft_strdup(tab[i]);
+		i++;
+	}
+	map[i] = NULL;
+	return(map);
+}
 
 int	ft_parsing(char **argv, t_cub *cub)
 {
    
 	int i = 0;
 
+	//parcing des ID
     cub->map = copy_map2(argv);
     cub->map2 = ft_split2(cub->map, '\n');
 	if (check_id(&*cub) == 1)
 	{
-		//free ici;
+		//free tt ici;
 		dprintf(2, "Pas les bons identifiants mon reuf\n");
 		exit(1);
 	}
+
+	//parcing de la map
 	grep_last_line(&*cub);
     cub->map_bis = copy_map(argv, &*cub);
     cub->map2_bis = ft_split(cub->map_bis, '\n');
-    while(cub->map2_bis[i])
+	cub->maps_finish = split_map(cub->map2_bis);
+	// if (verif_map(&*cub) == 1)
+	// {
+	// 	//free tt ici;
+	// 	puts("IIIIIIIIVVVVVVIIII\n");
+	// 	exit(1);
+	// }
+	
+    while(cub->maps_finish[i])
 	{
-	    printf("%s\n", cub->map2_bis[i]);
+	    printf("%s\n", cub->maps_finish[i]);
 	    i++;
 	}
 	
-	i = 0;
-	while(cub->map2[i])
-	{
-	    printf("%s\n", cub->map2[i]);
-	    i++;
-	}
+	// i = 0;
+	// while(cub->map2[i])
+	// {
+	//     printf("%s\n", cub->map2[i]);
+	//     i++;
+	// }
 	// while (i && i--)
 	// 	free(map2[i]);
 	// free(map);

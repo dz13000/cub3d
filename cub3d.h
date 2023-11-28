@@ -28,6 +28,7 @@ typedef struct s_cub
 	char	**map2;
 	char	*map_bis;
 	char	**map2_bis;
+	char	**maps_finish;
 	int		count;
 	int		line_no;
 	int		line_so;

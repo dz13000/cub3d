@@ -15,21 +15,14 @@
 int	check_last_line(char *tmp, t_cub *cub)
 {
 	int i;
-	int j;
 
 	i = 0;
-	j = 0;
 	if (!tmp || tmp[0] == '\0')
 		return(0);
 	while(tmp[i] && (tmp[i] == ' ' || tmp[i] == '\n'))
 		i++;
-	// printf("ICICICICICIC----->%c\n", cub->last_line[0]);
-	// printf("ICICICICICIC----->%c\n", tmp[i]);
 	if(tmp[i] == cub->last_line[0] && tmp[i + 1] == cub->last_line[1])
-	{
-		// printf("ICICICICICIC----->%c\n", tmp[i]);
 		return(1);
-	}
 	return(0);
 }
 
@@ -40,24 +33,21 @@ char	*copy_map(char **argv, t_cub *cub)
 	char	*tmp;
 
 	map = NULL;
-	(void)cub;
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		return (NULL);
 	while (1)
 	{
 		tmp = get_next_line(fd);
-		// printf("------>%s\n", tmp);
 		if(check_last_line(tmp, &*cub) == 1)
 		{
-			free(tmp);	
+			free(tmp);
 			break;
 		}
 		free(tmp);
 		if (tmp == NULL)
 			break ;
 	}
-	// printf("IIIIIIIIIIIICIIIIII\n");
 	while (1)
 	{
 		tmp = get_next_line(fd);
@@ -66,7 +56,6 @@ char	*copy_map(char **argv, t_cub *cub)
 		if (tmp == NULL)
 			break ;
 	}
-	// printf("---->>>%s", map);
 	close(fd);
 	return (map);
 }
@@ -84,7 +73,6 @@ char	*copy_map2(char **argv)
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		return (NULL);
-	// map = get_next_line(fd);
 	while (1)
 	{
 		tmp = get_next_line(fd);
