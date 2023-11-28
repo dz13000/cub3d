@@ -44,5 +44,7 @@ int			cut(char *str);
 char		*ft_substr(char *s, int start, int len);
 int			slen(char *str);
 char		**ft_split(char const *s, char c);
+char		**ft_split2(char const *s, char c);
+
 
 #endif
