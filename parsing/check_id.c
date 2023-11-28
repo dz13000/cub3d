@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 02:46:42 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/11/28 05:04:43 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/11/28 11:48:46 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,12 +204,32 @@ int	check_wall(t_cub *cub)
 		j = 0;
 		while (cub->maps_finish[i][j] && (cub->maps_finish[i][j] == ' ' || cub->maps_finish[i][j] == '\t'))
 			j++;
-		printf("----->>%c\n", cub->maps_finish[i][j]);
-		printf("----->>>>%s\n", cub->maps_finish[i]);
 		if(cub->maps_finish[i][j] != '1')
 		{
-			printf("----->>>%s\n", cub->maps_finish[i]);
 			puts("je rentre\n");
+			return(1);
+		}
+		i++;
+	}
+	return(0);
+}
+
+int check_wall_end(t_cub *cub)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	while (cub->maps_finish[i])
+	{
+		j = 0;
+		while(cub->maps_finish[i][j])
+			j++;
+		j--;
+		if(cub->maps_finish[i][j] != '1')
+		{
+			puts("je rentre2\n");
 			return(1);
 		}
 		i++;
@@ -219,11 +239,13 @@ int	check_wall(t_cub *cub)
 
 int	verif_map(t_cub *cub)
 {
-	// if(check_fisrt_wall(&*cub) == 1)
-	// 	return(1);
-	// if(check_last_wall(&*cub) == 1)
-	// 	return(1);
 	if(check_wall(&*cub) == 1)
+		return(1);
+	if(check_wall_end(&*cub) == 1)
+		return(1);
+	if(check_fisrt_wall(&*cub) == 1)
+		return(1);
+	if(check_last_wall(&*cub) == 1)
 		return(1);
 	return(0);
 }
@@ -248,10 +270,12 @@ char **split_map(char **tab)
 {
 	int	i;
 	int	j;
+	int	k;
 	char **map;
 
 	i = 0;
 	j = 0;
+	k = 0;
 	while(tab[i])
 		i++;
 	i--;
@@ -261,15 +285,24 @@ char **split_map(char **tab)
 			break;
 		i--;
 	}
-	map = malloc(sizeof(char**) * (i + 1));
-	j = i;
-	i = 0;
-	while(i <= j)
+	while (tab[k])
 	{
-		map[i] = ft_strdup(tab[i]);
-		i++;
+		if(verif_line2(tab[k]) == 0)
+			break;
+		k++;
 	}
-	map[i] = NULL;
+	printf("----->>>%d\n", k);
+	map = malloc(sizeof(char**) * ((i - k) + 1));
+	// j = i;
+	// i = 0;
+	
+	while(k <= i)
+	{
+		map[j] = ft_strdup(tab[k]);
+		k++;
+		j++;
+	}
+	map[j] = NULL;
 	return(map);
 }
 
@@ -293,12 +326,12 @@ int	ft_parsing(char **argv, t_cub *cub)
     cub->map_bis = copy_map(argv, &*cub);
     cub->map2_bis = ft_split(cub->map_bis, '\n');
 	cub->maps_finish = split_map(cub->map2_bis);
-	// if (verif_map(&*cub) == 1)
-	// {
-	// 	//free tt ici;
-	// 	puts("IIIIIIIIVVVVVVIIII\n");
-	// 	exit(1);
-	// }
+	if (verif_map(&*cub) == 1)
+	{
+		//free tt ici;
+		puts("IIIIIIIIVVVVVVIIII\n");
+		exit(1);
+	}
 	
     while(cub->maps_finish[i])
 	{
