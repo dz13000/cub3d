@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 02:46:42 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/11/29 09:51:24 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/11/29 18:48:15 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,27 +247,27 @@ int	check_wall_end(t_cub *cub)
 }
 int	ft_char(char c)
 {
-	if(c == '1')
-		return(0);
-	if(c == '0')
-		return(0);
-	if(c == 'N')
-		return(0);
-	if(c == 'S')
-		return(0);
-	if(c == 'E')
-		return(0);
-	if(c == 'W')
-		return(0);
-	if(c == ' ')
-		return(0);
-	return(1);
+	if (c == '1')
+		return (0);
+	if (c == '0')
+		return (0);
+	if (c == 'N')
+		return (0);
+	if (c == 'S')
+		return (0);
+	if (c == 'E')
+		return (0);
+	if (c == 'W')
+		return (0);
+	if (c == ' ')
+		return (0);
+	return (1);
 }
 
 int	check_char_map(t_cub *cub)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
@@ -276,132 +276,195 @@ int	check_char_map(t_cub *cub)
 		j = 0;
 		while (cub->maps_finish[i][j])
 		{
-			if(ft_char(cub->maps_finish[i][j]) == 1)
-				return(1);
+			if (ft_char(cub->maps_finish[i][j]) == 1)
+				return (1);
 			j++;
 		}
 		i++;
 	}
-	return(0);
+	return (0);
 }
 
-int ft_strlen(char *str)
+int	ft_strlen(char *str)
 {
-	int i;
-	
-	if(!str || str[0] == '\0')
-		return(0);
+	int	i;
+
+	if (!str || str[0] == '\0')
+		return (0);
 	i = 0;
 	while (str[i])
 	{
 		i++;
 	}
-	return(i);
+	return (i);
 }
-int check_size(t_cub *cub)
+int	check_size(t_cub *cub)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(cub->maps_finish[i])
+	while (cub->maps_finish[i])
 	{
-		if(ft_strlen(cub->maps_finish[i]) < 3)
-			return(1);
+		if (ft_strlen(cub->maps_finish[i]) < 3)
+			return (1);
 		i++;
 	}
-	return(0);
+	return (0);
 }
-int check_up(t_cub *cub, int i, int j)
+int	check_up(t_cub *cub, int i, int j)
 {
-	int i2;
-	int j2;
+	int	i2;
+	int	j2;
 
 	i2 = i;
 	j2 = j;
 	printf(">>>>>>>>>%d\n", i2);
 	printf(">>>>>>>>>%d\n", j2);
-	while(i2 >= 1)
+	while (i2 >= 1)
 	{
-		if(cub->maps_finish[i2][j2] == ' ')
+		if (cub->maps_finish[i2][j2] == ' ')
 		{
 			i2--;
 			puts("ICI\n");
-			continue;
+			continue ;
 		}
-		if(cub->maps_finish[i2][j2] != '1')
+		if (cub->maps_finish[i2][j2] != '1')
 		{
 			// printf("+++>>>%c\n", cub->maps_finish[i2][j2]);
 			puts("TROU2\n");
-			return(1);
+			return (1);
 		}
-		if(cub->maps_finish[i2][j2] == '1')
+		if (cub->maps_finish[i2][j2] == '1')
 		{
-			
-			break;
+			break ;
 		}
 	}
-	return(0);
+	return (0);
 }
 
-int check_down(t_cub *cub, int i, int j)
+int	check_left(t_cub *cub, int i, int j)
 {
-	int i2;
-	int j2;
+	int	i2;
+	int	j2;
 
 	i2 = i;
 	j2 = j;
 	printf(">>>>>>>>>%d\n", i2);
 	printf(">>>>>>>>>%d\n", j2);
-	while(cub->maps_finish[i2] && cub->maps_finish[i2 + 1] != NULL)
+	while (j2 >= 1)
 	{
-		if(cub->maps_finish[i2][j2] == ' ')
+		if (cub->maps_finish[i2][j2] == ' ')
 		{
-			i2++;
+			j2--;
 			puts("ICI\n");
-			continue;
+			continue ;
 		}
-		if(cub->maps_finish[i2][j2] != '1')
+		if (cub->maps_finish[i2][j2] != '1')
 		{
 			// printf("+++>>>%c\n", cub->maps_finish[i2][j2]);
 			puts("TROU2\n");
-			return(1);
+			return (1);
 		}
-		if(cub->maps_finish[i2][j2] == '1')
+		if (cub->maps_finish[i2][j2] == '1')
 		{
-			
-			break;
+			break ;
 		}
 	}
-	return(0);
+	return (0);
+}
+int	check_down(t_cub *cub, int i, int j)
+{
+	int	i2;
+	int	j2;
+
+	i2 = i;
+	j2 = j;
+	printf(">>>>>>>>>%d\n", i2);
+	printf(">>>>>>>>>%d\n", j2);
+	while (cub->maps_finish[i2] && cub->maps_finish[i2 + 1] != NULL)
+	{
+		if (cub->maps_finish[i2][j2] == ' ')
+		{
+			i2++;
+			puts("ICI\n");
+			continue ;
+		}
+		if (cub->maps_finish[i2][j2] != '1')
+		{
+			// printf("+++>>>%c\n", cub->maps_finish[i2][j2]);
+			puts("TROU2\n");
+			return (1);
+		}
+		if (cub->maps_finish[i2][j2] == '1')
+		{
+			break ;
+		}
+	}
+	return (0);
 }
 
-int check_spaces(t_cub *cub)
+int	check_right(t_cub *cub, int i, int j)
 {
-	int i;
-	int j;
+	int	i2;
+	int	j2;
+
+	i2 = i;
+	j2 = j;
+	printf(">>>>>>>>>%d\n", i2);
+	printf(">>>>>>>>>%d\n", j2);
+	while (cub->maps_finish[i2][j2] && cub->maps_finish[i2][j2 + 1] != '\0')
+	{
+		if (cub->maps_finish[i2][j2] == ' ')
+		{
+			j2++;
+			puts("ICI\n");
+			continue ;
+		}
+		if (cub->maps_finish[i2][j2] != '1')
+		{
+			// printf("+++>>>%c\n", cub->maps_finish[i2][j2]);
+			puts("TROU2\n");
+			return (1);
+		}
+		if (cub->maps_finish[i2][j2] == '1')
+		{
+			break ;
+		}
+	}
+	return (0);
+}
+
+int	check_spaces(t_cub *cub)
+{
+	int	i;
+	int	j;
 
 	i = 1;
 	j = 0;
-	while(cub->maps_finish[i])
+	while (cub->maps_finish[i])
 	{
 		j = 0;
-		while(cub->maps_finish[i][j] && cub->maps_finish[i][j] != '1')
+		while (cub->maps_finish[i][j] && cub->maps_finish[i][j] != '1')
 			j++;
-		while(cub->maps_finish[i][j])
+		while (cub->maps_finish[i][j])
 		{
 			// puts("TROU\n");
-			if(cub->maps_finish[i][j] == ' ')
+			if (cub->maps_finish[i][j] == ' ')
 			{
-				if(check_up(&*cub, i, j) == 1)
-					return(1);
-				if(check_down(&*cub, i, j) == 1)
-					return(1);
+				if (check_up(&*cub, i, j) == 1)
+					return (1);
+				if (check_down(&*cub, i, j) == 1)
+					return (1);
+				if (check_left(&*cub, i, j) == 1)
+					return (1);
+				if (check_right(&*cub, i, j) == 1)
+					return (1);
 			}
 			j++;
 		}
 		i++;
 	}
-	return(0);
+	return (0);
 }
 
 int	verif_map(t_cub *cub)
@@ -415,13 +478,13 @@ int	verif_map(t_cub *cub)
 	if (check_last_wall(&*cub) == 1)
 		return (1);
 	if (check_char_map(&*cub) == 1)
-		return(1);
+		return (1);
 	if (check_size(&*cub) == 1)
-		return(1);
-	if(check_spaces(&*cub) == 1)
+		return (1);
+	if (check_spaces(&*cub) == 1)
 	{
 		puts("TROU\n");
-		return(1);
+		return (1);
 	}
 	return (0);
 }
