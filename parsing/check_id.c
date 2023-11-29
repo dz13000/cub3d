@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 02:46:42 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/11/29 05:44:30 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/11/29 09:51:24 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -311,7 +311,7 @@ int check_size(t_cub *cub)
 	}
 	return(0);
 }
-int check_around(t_cub *cub, int i, int j)
+int check_up(t_cub *cub, int i, int j)
 {
 	int i2;
 	int j2;
@@ -322,17 +322,19 @@ int check_around(t_cub *cub, int i, int j)
 	printf(">>>>>>>>>%d\n", j2);
 	while(i2 >= 1)
 	{
-		if(cub->maps_finish[i2][j] == ' ')
+		if(cub->maps_finish[i2][j2] == ' ')
 		{
 			i2--;
+			puts("ICI\n");
 			continue;
 		}
-		if(cub->maps_finish[i2][j] != 1)
+		if(cub->maps_finish[i2][j2] != '1')
 		{
-			
+			// printf("+++>>>%c\n", cub->maps_finish[i2][j2]);
+			puts("TROU2\n");
 			return(1);
 		}
-		if(cub->maps_finish[i2][j] == 1)
+		if(cub->maps_finish[i2][j2] == '1')
 		{
 			
 			break;
@@ -340,6 +342,39 @@ int check_around(t_cub *cub, int i, int j)
 	}
 	return(0);
 }
+
+int check_down(t_cub *cub, int i, int j)
+{
+	int i2;
+	int j2;
+
+	i2 = i;
+	j2 = j;
+	printf(">>>>>>>>>%d\n", i2);
+	printf(">>>>>>>>>%d\n", j2);
+	while(cub->maps_finish[i2] && cub->maps_finish[i2 + 1] != NULL)
+	{
+		if(cub->maps_finish[i2][j2] == ' ')
+		{
+			i2++;
+			puts("ICI\n");
+			continue;
+		}
+		if(cub->maps_finish[i2][j2] != '1')
+		{
+			// printf("+++>>>%c\n", cub->maps_finish[i2][j2]);
+			puts("TROU2\n");
+			return(1);
+		}
+		if(cub->maps_finish[i2][j2] == '1')
+		{
+			
+			break;
+		}
+	}
+	return(0);
+}
+
 int check_spaces(t_cub *cub)
 {
 	int i;
@@ -357,7 +392,9 @@ int check_spaces(t_cub *cub)
 			// puts("TROU\n");
 			if(cub->maps_finish[i][j] == ' ')
 			{
-				if(check_around(&*cub, i, j) == 1)
+				if(check_up(&*cub, i, j) == 1)
+					return(1);
+				if(check_down(&*cub, i, j) == 1)
 					return(1);
 			}
 			j++;
