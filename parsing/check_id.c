@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 02:46:42 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/11/28 13:06:45 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/11/29 05:44:30 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -311,6 +311,61 @@ int check_size(t_cub *cub)
 	}
 	return(0);
 }
+int check_around(t_cub *cub, int i, int j)
+{
+	int i2;
+	int j2;
+
+	i2 = i;
+	j2 = j;
+	printf(">>>>>>>>>%d\n", i2);
+	printf(">>>>>>>>>%d\n", j2);
+	while(i2 >= 1)
+	{
+		if(cub->maps_finish[i2][j] == ' ')
+		{
+			i2--;
+			continue;
+		}
+		if(cub->maps_finish[i2][j] != 1)
+		{
+			
+			return(1);
+		}
+		if(cub->maps_finish[i2][j] == 1)
+		{
+			
+			break;
+		}
+	}
+	return(0);
+}
+int check_spaces(t_cub *cub)
+{
+	int i;
+	int j;
+
+	i = 1;
+	j = 0;
+	while(cub->maps_finish[i])
+	{
+		j = 0;
+		while(cub->maps_finish[i][j] && cub->maps_finish[i][j] != '1')
+			j++;
+		while(cub->maps_finish[i][j])
+		{
+			// puts("TROU\n");
+			if(cub->maps_finish[i][j] == ' ')
+			{
+				if(check_around(&*cub, i, j) == 1)
+					return(1);
+			}
+			j++;
+		}
+		i++;
+	}
+	return(0);
+}
 
 int	verif_map(t_cub *cub)
 {
@@ -326,6 +381,11 @@ int	verif_map(t_cub *cub)
 		return(1);
 	if (check_size(&*cub) == 1)
 		return(1);
+	if(check_spaces(&*cub) == 1)
+	{
+		puts("TROU\n");
+		return(1);
+	}
 	return (0);
 }
 
@@ -406,7 +466,7 @@ int	ft_parsing(char **argv, t_cub *cub)
 	if (verif_map(&*cub) == 1)
 	{
 		//free tt ici;
-		puts("IIIIIIIIVVVVVVIIII\n");
+		puts("NNNOOOOOOOOOOOOONN\n");
 		exit(1);
 	}
 
