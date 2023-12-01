@@ -3,6 +3,11 @@ SRCS =	parsing/get_next_line.c \
 		parsing/ft_split.c \
 		parsing/ft_split2.c \
 		parsing/check_id.c \
+		parsing/parsing.c \
+		parsing/verif_map.c \
+		parsing/verif_map2.c \
+		parsing/check_player.c \
+		parsing/check_spaces.c \
 		main.c \
 
 

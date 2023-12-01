@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 19:11:53 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/11/28 04:59:48 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/01 00:11:10 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ char	*copy_map2(char **argv)
 int	main(int ac, char **argv, char **env)
 {
 	t_cub cub = {0};
-	cub.count = 0;
+	// cub.count = 0;
 	if (!env)
 		return (1);
 	if (ac != 2)
