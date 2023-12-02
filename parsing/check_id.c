@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 02:46:42 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/01 01:57:17 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/02 04:11:10 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int	check_id(t_cub *cub)
 			{
 				if (check_before(&*cub, i, j) == 0 && cub->line_no == 0)
 				{
-					// printf("----------------->je rentre NO\n");
 					cub->line_no = i;
 					cub->count++;
 					cub->line_no++;
@@ -78,7 +77,6 @@ int	check_id(t_cub *cub)
 			{
 				if (check_before(&*cub, i, j) == 0 && cub->line_so == 0)
 				{
-					// printf("----------------->je rentre SO\n");
 					cub->line_so = i;
 					cub->count++;
 					cub->line_so++;
@@ -91,7 +89,6 @@ int	check_id(t_cub *cub)
 			{
 				if (check_before(&*cub, i, j) == 0 && cub->line_we == 0)
 				{
-					// printf("----------------->je rentre WE\n");
 					cub->line_we = i;
 					cub->count++;
 					cub->line_we++;
@@ -104,7 +101,6 @@ int	check_id(t_cub *cub)
 			{
 				if (check_before(&*cub, i, j) == 0 && cub->line_ea == 0)
 				{
-					// printf("----------------->je rentre EA\n");
 					cub->line_ea = i;
 					cub->count++;
 					cub->line_ea++;
@@ -116,7 +112,6 @@ int	check_id(t_cub *cub)
 			{
 				if (check_before(&*cub, i, j) == 0 && cub->line_f == 0)
 				{
-					// printf("----------------->je rentre F\n");
 					cub->line_no = i;
 					cub->count++;
 					cub->line_f++;
@@ -128,7 +123,6 @@ int	check_id(t_cub *cub)
 			{
 				if (check_before(&*cub, i, j) == 0 && cub->line_c == 0)
 				{
-					// printf("----------------->je rentre C\n");
 					cub->count++;
 					cub->line_c++;
 					break ;
@@ -138,7 +132,6 @@ int	check_id(t_cub *cub)
 		}
 		i++;
 	}
-	// printf("--------------%d\n", cub->count);
 	if (cub->count == 6)
 	{
 		printf("--------------->good\n");
@@ -197,6 +190,12 @@ char	**split_map(char **tab)
 		map[j] = ft_strdup(tab[k]);
 		k++;
 		j++;
+	}
+	if(!map)
+	{
+		//tt free ici;
+		printf("Map introuvable\n");
+		exit(1);
 	}
 	map[j] = NULL;
 	return (map);

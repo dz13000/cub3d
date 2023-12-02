@@ -6,12 +6,11 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 01:05:36 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/01 01:24:11 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/01 02:12:24 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
 
 void	grep_last_line(t_cub *cub)
 {

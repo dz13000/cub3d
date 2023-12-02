@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 01:10:11 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/01 01:14:48 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/01 02:12:27 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,6 @@ int	verif_map(t_cub *cub)
 		return (1);
 	}
 	if (check_player(&*cub) == 1)
-		return(1);
+		return (1);
 	return (0);
 }

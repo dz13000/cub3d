@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 01:50:51 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/01 01:52:51 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/01 02:12:16 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,8 +137,8 @@ int	check_right(t_cub *cub, int i, int j)
 
 int	check_spaces(t_cub *cub)
 {
-	int	i;
-	int	j;
+	int i;
+	int j;
 
 	i = 1;
 	j = 0;
