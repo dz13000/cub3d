@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 02:46:42 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/02 04:11:10 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/02 04:27:29 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,8 +183,6 @@ char	**split_map(char **tab)
 	}
 	printf("----->>>%d\n", k);
 	map = malloc(sizeof(char **) * ((i - k) + 1));
-	// j = i;
-	// i = 0;
 	while (k <= i)
 	{
 		map[j] = ft_strdup(tab[k]);
