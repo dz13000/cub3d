@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 01:05:36 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/02 08:20:35 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/03 08:59:07 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,9 +162,10 @@ int check_ea(t_cub *cub)
 	fd = open(&cub->map2[i][j], O_RDONLY);
 	if(fd == -1)
 	{
-		puts("SA EXISTE PAS\n");
+		puts("CA N'EXISTE PAS\n");
 		return(1);
 	}
+	close(fd);
 	return(0);
 }
 
@@ -231,6 +232,62 @@ int check_virgule(char *str)
 	return(0);
 }
 
+int ft_isdigit(int nb)
+{
+    if(nb >= 48 && nb <= 57)
+        return(1);
+    return (0);
+}
+
+int check_char_line(char *str)
+{
+	int i;
+
+	i = 0;
+	while(str[i])
+	{
+		if ((str[i] != ' ') && (str[i] != ',') && (ft_isdigit(str[i]) == 0))
+			return(1);
+		i++;
+	}
+	return(0);
+}
+
+int check_number(char *str)
+{
+	int i;
+	int nb;
+
+	i = 0;
+	nb = 0;
+	while(str[i] && str[i] != ',')
+	{
+		if(ft_isdigit(str[i]) == 1 && nb == 0)
+			nb++;
+		i++;
+	}
+	i++;
+	while(str[i] && str[i] != ',')
+	{
+		if(ft_isdigit(str[i]) == 1 && nb == 1)
+			nb++;
+		i++;
+	}
+	i++;
+	while (str[i])
+	{
+		if(ft_isdigit(str[i]) == 1)
+		{
+			nb++;
+			break;
+		}
+		i++;
+	}
+	if(nb != 3)
+		return(1);
+	return(0);
+}
+
 int check_c(t_cub *cub)
 {
 	int i;
@@ -263,14 +320,56 @@ int check_c(t_cub *cub)
 	printf("---->>>>%s\n", &cub->map2[i][j]);
 	if(check_virgule(&cub->map2[i][j]) == 1)
 		return(1);
+	if(check_char_line(&cub->map2[i][j]) == 1)
+		return(1);
+	if(check_number(&cub->map2[i][j]) == 1)
+		return(1);
+	
+	return(0);
+}
+
+int check_f(t_cub *cub)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	while (cub->map2[i])
+	{
+		j = 0;
+		while(cub->map2[i][j])
+		{
+			if(cub->map2[i][j] == 'F')
+				break;
+			j++;
+		}
+		if(cub->map2[i][j] == 'F')
+				break;
+		i++;
+	}
+	j++;
+	if(cub->map2[i][j] != ' ' && cub->map2[i][j] != '\t')
+		return(1);
+	while(cub->map2[i][j])
+	{
+		if(cub->map2[i][j] != ' ' && cub->map2[i][j] != '\t' )
+			break;
+		j++;
+	}
+	printf("---->>>>%s\n", &cub->map2[i][j]);
+	if(check_virgule(&cub->map2[i][j]) == 1)
+		return(1);
+	if(check_char_line(&cub->map2[i][j]) == 1)
+		return(1);
+	if(check_number(&cub->map2[i][j]) == 1)
+		return(1);
 	
 	return(0);
 }
 
 int check_id2(t_cub *cub)
 {
-	if(check_c(&*cub) == 1)
-		return(1);
 	if(check_so(&*cub) == 1)
 		return(1);
 	if(check_no(&*cub) == 1)
@@ -279,8 +378,10 @@ int check_id2(t_cub *cub)
 		return(1);
 	if(check_we(&*cub) == 1)
 		return(1);
-	// if(check_f(&*cub) == 1)
-	// 	return(1);
+	if(check_c(&*cub) == 1)
+		return(1);
+	if(check_f(&*cub) == 1)
+		return(1);
 	return(0);
 }
 
@@ -303,12 +404,12 @@ int	ft_parsing(char **argv, t_cub *cub)
 		dprintf(2, "Pas les bons identifiants mon reuf\n");
 		exit(1);
 	}
-	if (check_id2(&*cub) == 1)
-	{
-		//free tt ici;
-		dprintf(2, "Pas les bons identifiants mon reuf 2\n");
-		exit(1);
-	}
+	// if (check_id2(&*cub) == 1)
+	// {
+	// 	//free tt ici;
+	// 	dprintf(2, "Pas les bons identifiants mon reuf 2\n");
+	// 	exit(1);
+	// }
 	//parcing de la map
 	grep_last_line(&*cub);
 	cub->map_bis = copy_map(argv, &*cub);
