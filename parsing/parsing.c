@@ -213,6 +213,24 @@ int check_we(t_cub *cub)
 	return(0);
 }
 
+int check_virgule(char *str)
+{
+	int i;
+	int vir;
+
+	i = 0;
+	vir = 0;
+	while(str[i])
+	{
+		if(str[i] == ',')
+			vir++;
+		i++;
+	}
+	if(vir != 2)
+		return(1);
+	return(0);
+}
+
 int check_c(t_cub *cub)
 {
 	int i;
@@ -243,6 +261,8 @@ int check_c(t_cub *cub)
 		j++;
 	}
 	printf("---->>>>%s\n", &cub->map2[i][j]);
+	if(check_virgule(&cub->map2[i][j]) == 1)
+		return(1);
 	
 	return(0);
 }
