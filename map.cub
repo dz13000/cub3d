@@ -4,7 +4,7 @@
 
           
 F  000, 000, 00
-                 C   255,2 ,30
+                 C   255,200 ,30
 SO ./textures/greystone.xpm
 NO ./textures/eagle.xpm
 

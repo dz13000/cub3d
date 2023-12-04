@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 19:22:35 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/01 02:08:22 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/04 09:11:02 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,7 @@ int			check_down(t_cub *cub, int i, int j);
 int			check_right(t_cub *cub, int i, int j);
 int			verif_map(t_cub *cub);
 char		**split_map(char **tab);
+int			check_atoi(char *str);
+long long	ft_atoi(char *str);
 
 #endif

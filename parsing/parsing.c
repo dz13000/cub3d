@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 01:05:36 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/03 08:59:07 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/04 09:10:33 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -324,7 +324,62 @@ int check_c(t_cub *cub)
 		return(1);
 	if(check_number(&cub->map2[i][j]) == 1)
 		return(1);
+	if(check_atoi(&cub->map2[i][j]) == 1)
+	{
+		puts("icicicicici\n");
+		return(1);
+	}
 	
+	return(0);
+}
+
+long long ft_atoi(char *str)
+{
+    int i = 0;
+    long long sign = 1;
+    long long res = 0;
+
+    while((str[i] >= 9 && str[i] <= 13) || (str[i] == 32))
+        i++;
+    if(str[i] == '+' || str[i] == '-')
+    {
+        if(str[i] == '-')
+            sign = -1;
+        i++;
+    }
+    while(str[i] >= '0' && str[i] <= '9')
+    {
+        res = res * 10 + str[i] - '0';
+        i++;
+    }
+    return(res *sign);
+}
+
+int check_atoi(char *str)
+{
+	long long nb;
+	int i;
+
+	i = 0;
+	nb = 0;
+		puts("icicicicici\n");
+	nb = ft_atoi(str);
+	if(nb > 255)
+		return(1);
+	while ((str[i]) && str[i] != ',')
+		i++;
+	i++;
+	nb = 0;
+	nb = ft_atoi(&str[i]);
+	if(nb > 255)
+		return(1);
+	while ((str[i]) && str[i] != ',')
+		i++;
+	i++;
+	nb = 0;
+	nb = ft_atoi(&str[i]);
+	if(nb > 255)
+		return(1);
 	return(0);
 }
 
@@ -364,12 +419,18 @@ int check_f(t_cub *cub)
 		return(1);
 	if(check_number(&cub->map2[i][j]) == 1)
 		return(1);
-	
+	if(check_atoi(&cub->map2[i][j]) == 1)
+	{
+		puts("icicicicici\n");
+		return(1);
+	}
 	return(0);
 }
 
 int check_id2(t_cub *cub)
 {
+	if(check_c(&*cub) == 1)
+		return(1);
 	if(check_so(&*cub) == 1)
 		return(1);
 	if(check_no(&*cub) == 1)
@@ -377,8 +438,6 @@ int check_id2(t_cub *cub)
 	if(check_ea(&*cub) == 1)
 		return(1);
 	if(check_we(&*cub) == 1)
-		return(1);
-	if(check_c(&*cub) == 1)
 		return(1);
 	if(check_f(&*cub) == 1)
 		return(1);
@@ -404,12 +463,13 @@ int	ft_parsing(char **argv, t_cub *cub)
 		dprintf(2, "Pas les bons identifiants mon reuf\n");
 		exit(1);
 	}
-	// if (check_id2(&*cub) == 1)
-	// {
-	// 	//free tt ici;
-	// 	dprintf(2, "Pas les bons identifiants mon reuf 2\n");
-	// 	exit(1);
-	// }
+	if (check_id2(&*cub) == 1)
+	{
+		//free tt ici;
+		dprintf(2, "Pas les bons identifiants mon reuf 2\n");
+		exit(1);
+	}
+	
 	//parcing de la map
 	grep_last_line(&*cub);
 	cub->map_bis = copy_map(argv, &*cub);
