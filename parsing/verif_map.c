@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 01:10:11 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/01 02:12:27 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/04 17:36:29 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	check_last_wall(t_cub *cub)
 	i--;
 	while (cub->maps_finish[i][j])
 	{
+		printf("IIIICCCIII---->>> %c\n", cub->maps_finish[i][j]);
 		if (cub->maps_finish[i][j] != '1')
 			return (1);
 		j++;
@@ -111,6 +112,11 @@ int	verif_map(t_cub *cub)
 		puts("TROU\n");
 		return (1);
 	}
+	// if (check_zero(&*cub) == 1)
+	// {
+	// 	puts("TROU2\n");
+	// 	return (1);
+	// }
 	if (check_player(&*cub) == 1)
 		return (1);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 01:05:36 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/04 11:53:21 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/04 17:13:37 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -434,6 +434,8 @@ int	check_f(t_cub *cub)
 
 int	check_id2(t_cub *cub)
 {
+	if (check_f(&*cub) == 1)
+		return (1);
 	if (check_c(&*cub) == 1)
 		return (1);
 	if (check_so(&*cub) == 1)
@@ -443,8 +445,6 @@ int	check_id2(t_cub *cub)
 	if (check_ea(&*cub) == 1)
 		return (1);
 	if (check_we(&*cub) == 1)
-		return (1);
-	if (check_f(&*cub) == 1)
 		return (1);
 	return (0);
 }
@@ -466,12 +466,12 @@ int	ft_parsing(char **argv, t_cub *cub)
 		dprintf(2, "Pas les bons identifiants mon reuf\n");
 		exit(1);
 	}
-	// if (check_id2(&*cub) == 1)
-	// {
-	// 	//free tt ici;
-	// 	dprintf(2, "Pas les bons identifiants mon reuf 2\n");
-	// 	exit(1);
-	// }
+	if (check_id2(&*cub) == 1)
+	{
+		//free tt ici;
+		dprintf(2, "Pas les bons identifiants mon reuf 2\n");
+		exit(1);
+	}
 	//parcing de la map
 	grep_last_line(&*cub);
 	cub->map_bis = copy_map(argv, &*cub);
@@ -501,3 +501,6 @@ int	ft_parsing(char **argv, t_cub *cub)
 	// free(map2);
 	return (0);
 }
+// verifier les bordures
+// remplacer le vide par des 0 et pas par des 1
+// check C   255 ,20 0, 214 cense etre faux

@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 19:11:53 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/04 13:59:55 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/04 16:42:46 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ char **change_map(char **map)
 		nb = ft_strlen2(map[i]);
 		if(nb > max)
 			max = nb;
-		printf("ligne n %d  nb = %d >> %s\n", i, nb, map[i]);
+		// printf("ligne n %d  nb = %d >> %s\n", i, nb, map[i]);
 		i++;
 	}
 	final = malloc(sizeof(char **) * (i + 1));
@@ -202,11 +202,11 @@ int	main(int ac, char **argv, char **env)
 	//tt free sauf maps_finish
 
 	exec.final_map = change_map(cub.maps_finish);
-	int i = 0;
-	while (exec.final_map[i])
-	{
-		printf("%s\n", exec.final_map[i]);
-		i++;
-	}
+	// int i = 0;
+	// while (exec.final_map[i])
+	// {
+	// 	printf("%s\n", exec.final_map[i]);
+	// 	i++;
+	// }
 	return (0);
 }
