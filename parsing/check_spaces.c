@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 01:50:51 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/01 02:12:16 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/04 14:07:38 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,8 +145,8 @@ int	check_spaces(t_cub *cub)
 	while (cub->maps_finish[i])
 	{
 		j = 0;
-		while (cub->maps_finish[i][j] && cub->maps_finish[i][j] != '1')
-			j++;
+		// while (cub->maps_finish[i][j] && cub->maps_finish[i][j] != '1')
+		// 	j++;
 		while (cub->maps_finish[i][j])
 		{
 			// puts("TROU\n");

@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 01:05:36 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/04 09:14:26 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/04 11:53:21 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,172 +33,172 @@ void	grep_last_line(t_cub *cub)
 	printf("------%s\n", cub->last_line);
 }
 
-int check_no(t_cub *cub)
+int	check_no(t_cub *cub)
 {
-	int i;
-	int j;
-	int fd;
+	int	i;
+	int	j;
+	int	fd;
 
 	i = 0;
 	j = 0;
 	while (cub->map2[i])
 	{
 		j = 0;
-		while(cub->map2[i][j])
+		while (cub->map2[i][j])
 		{
-			if(cub->map2[i][j] == 'N' && cub->map2[i][j + 1] == 'O')
-				break;
+			if (cub->map2[i][j] == 'N' && cub->map2[i][j + 1] == 'O')
+				break ;
 			j++;
 		}
-		if(cub->map2[i][j] == 'N' && cub->map2[i][j + 1] == 'O')
-				break;
+		if (cub->map2[i][j] == 'N' && cub->map2[i][j + 1] == 'O')
+			break ;
 		i++;
 	}
 	j++;
-	if(cub->map2[i][j + 1] != ' ' && cub->map2[i][j + 1] != '\t')
-		return(1);
+	if (cub->map2[i][j + 1] != ' ' && cub->map2[i][j + 1] != '\t')
+		return (1);
 	j++;
-	while(cub->map2[i][j] && cub->map2[i][j] != '.')
+	while (cub->map2[i][j] && cub->map2[i][j] != '.')
 	{
-		if(cub->map2[i][j] != ' ' && cub->map2[i][j] != '\t' )
+		if (cub->map2[i][j] != ' ' && cub->map2[i][j] != '\t')
 		{
 			printf("---->>>>%c\n", cub->map2[i][j]);
 			puts("IIICCII\n");
-			return(1);
+			return (1);
 		}
 		j++;
 	}
 	printf("---->>>>%s\n", &cub->map2[i][j]);
 	fd = open(&cub->map2[i][j], O_RDONLY);
-	if(fd == -1)
+	if (fd == -1)
 	{
 		puts("SA EXISTE PAS\n");
-		return(1);
+		return (1);
 	}
 	close(fd);
-	return(0);
+	return (0);
 }
 
-int check_so(t_cub *cub)
+int	check_so(t_cub *cub)
 {
-	int i;
-	int j;
-	int fd;
+	int	i;
+	int	j;
+	int	fd;
 
 	i = 0;
 	j = 0;
 	while (cub->map2[i])
 	{
 		j = 0;
-		while(cub->map2[i][j])
+		while (cub->map2[i][j])
 		{
-			if(cub->map2[i][j] == 'S' && cub->map2[i][j + 1] == 'O')
-				break;
+			if (cub->map2[i][j] == 'S' && cub->map2[i][j + 1] == 'O')
+				break ;
 			j++;
 		}
-		if(cub->map2[i][j] == 'S' && cub->map2[i][j + 1] == 'O')
-				break;
+		if (cub->map2[i][j] == 'S' && cub->map2[i][j + 1] == 'O')
+			break ;
 		i++;
 	}
 	j++;
-	if(cub->map2[i][j + 1] != ' ' && cub->map2[i][j + 1] != '\t')
-		return(1);
+	if (cub->map2[i][j + 1] != ' ' && cub->map2[i][j + 1] != '\t')
+		return (1);
 	j++;
-	while(cub->map2[i][j] && cub->map2[i][j] != '.')
+	while (cub->map2[i][j] && cub->map2[i][j] != '.')
 	{
-		if(cub->map2[i][j] != ' ' && cub->map2[i][j] != '\t' )
+		if (cub->map2[i][j] != ' ' && cub->map2[i][j] != '\t')
 		{
 			printf("---->>>>%c\n", cub->map2[i][j]);
 			puts("IIICCII\n");
-			return(1);
+			return (1);
 		}
 		j++;
 	}
 	printf("---->>>>%s\n", &cub->map2[i][j]);
 	fd = open(&cub->map2[i][j], O_RDONLY);
-	if(fd == -1)
+	if (fd == -1)
 	{
 		puts("SA EXISTE PAS\n");
-		return(1);
+		return (1);
 	}
 	close(fd);
-	return(0);
+	return (0);
 }
 
-int check_ea(t_cub *cub)
+int	check_ea(t_cub *cub)
 {
-	int i;
-	int j;
-	int fd;
+	int	i;
+	int	j;
+	int	fd;
 
 	i = 0;
 	j = 0;
 	while (cub->map2[i])
 	{
 		j = 0;
-		while(cub->map2[i][j])
+		while (cub->map2[i][j])
 		{
-			if(cub->map2[i][j] == 'E' && cub->map2[i][j + 1] == 'A')
-				break;
+			if (cub->map2[i][j] == 'E' && cub->map2[i][j + 1] == 'A')
+				break ;
 			j++;
 		}
-		if(cub->map2[i][j] == 'E' && cub->map2[i][j + 1] == 'A')
-				break;
+		if (cub->map2[i][j] == 'E' && cub->map2[i][j + 1] == 'A')
+			break ;
 		i++;
 	}
 	j++;
-	if(cub->map2[i][j + 1] != ' ' && cub->map2[i][j + 1] != '\t')
-		return(1);
+	if (cub->map2[i][j + 1] != ' ' && cub->map2[i][j + 1] != '\t')
+		return (1);
 	j++;
-	while(cub->map2[i][j] && cub->map2[i][j] != '.')
+	while (cub->map2[i][j] && cub->map2[i][j] != '.')
 	{
-		if(cub->map2[i][j] != ' ' && cub->map2[i][j] != '\t' )
+		if (cub->map2[i][j] != ' ' && cub->map2[i][j] != '\t')
 		{
 			printf("---->>>>%c\n", cub->map2[i][j]);
 			puts("IIICCII\n");
-			return(1);
+			return (1);
 		}
 		j++;
 	}
 	printf("---->>>>%s\n", &cub->map2[i][j]);
 	fd = open(&cub->map2[i][j], O_RDONLY);
-	if(fd == -1)
+	if (fd == -1)
 	{
 		puts("CA N'EXISTE PAS\n");
-		return(1);
+		return (1);
 	}
 	close(fd);
-	return(0);
+	return (0);
 }
 
-int check_we(t_cub *cub)
+int	check_we(t_cub *cub)
 {
-	int i;
-	int j;
-	int fd;
+	int	i;
+	int	j;
+	int	fd;
 
 	i = 0;
 	j = 0;
 	while (cub->map2[i])
 	{
 		j = 0;
-		while(cub->map2[i][j])
+		while (cub->map2[i][j])
 		{
-			if(cub->map2[i][j] == 'W' && cub->map2[i][j + 1] == 'E')
-				break;
+			if (cub->map2[i][j] == 'W' && cub->map2[i][j + 1] == 'E')
+				break ;
 			j++;
 		}
-		if(cub->map2[i][j] == 'W' && cub->map2[i][j + 1] == 'E')
-				break;
+		if (cub->map2[i][j] == 'W' && cub->map2[i][j + 1] == 'E')
+			break ;
 		i++;
 	}
 	j++;
-	if(cub->map2[i][j + 1] != ' ' && cub->map2[i][j + 1] != '\t')
-		return(1);
+	if (cub->map2[i][j + 1] != ' ' && cub->map2[i][j + 1] != '\t')
+		return (1);
 	j++;
-	while(cub->map2[i][j] && cub->map2[i][j] != '.')
+	while (cub->map2[i][j] && cub->map2[i][j] != '.')
 	{
-		if(cub->map2[i][j] != ' ' && cub->map2[i][j] != '\t' )
+		if (cub->map2[i][j] != ' ' && cub->map2[i][j] != '\t')
 		{
 			printf("---->>>>%c\n", cub->map2[i][j]);
 			puts("IIICCII\n");
@@ -208,253 +208,253 @@ int check_we(t_cub *cub)
 	}
 	printf("---->>>>%s\n", &cub->map2[i][j]);
 	fd = open(&cub->map2[i][j], O_RDONLY);
-	if(fd == -1)
+	if (fd == -1)
 	{
 		puts("SA EXISTE PAS\n");
-		return(1);
+		return (1);
 	}
 	close(fd);
-	return(0);
+	return (0);
 }
 
-int check_virgule(char *str)
+int	check_virgule(char *str)
 {
-	int i;
-	int vir;
+	int	i;
+	int	vir;
 
 	i = 0;
 	vir = 0;
-	while(str[i])
+	while (str[i])
 	{
-		if(str[i] == ',')
+		if (str[i] == ',')
 			vir++;
 		i++;
 	}
-	if(vir != 2)
-		return(1);
-	return(0);
+	if (vir != 2)
+		return (1);
+	return (0);
 }
 
-int ft_isdigit(int nb)
+int	ft_isdigit(int nb)
 {
-    if(nb >= 48 && nb <= 57)
-        return(1);
-    return (0);
+	if (nb >= 48 && nb <= 57)
+		return (1);
+	return (0);
 }
 
-int check_char_line(char *str)
+int	check_char_line(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
 		if ((str[i] != ' ') && (str[i] != ',') && (ft_isdigit(str[i]) == 0))
-			return(1);
+			return (1);
 		i++;
 	}
-	return(0);
+	return (0);
 }
 
-int check_number(char *str)
+int	check_number(char *str)
 {
-	int i;
-	int nb;
+	int	i;
+	int	nb;
 
 	i = 0;
 	nb = 0;
-	while(str[i] && str[i] != ',')
+	while (str[i] && str[i] != ',')
 	{
-		if(ft_isdigit(str[i]) == 1 && nb == 0)
+		if (ft_isdigit(str[i]) == 1 && nb == 0)
 			nb++;
 		i++;
 	}
 	i++;
-	while(str[i] && str[i] != ',')
+	while (str[i] && str[i] != ',')
 	{
-		if(ft_isdigit(str[i]) == 1 && nb == 1)
+		if (ft_isdigit(str[i]) == 1 && nb == 1)
 			nb++;
 		i++;
 	}
 	i++;
 	while (str[i])
 	{
-		if(ft_isdigit(str[i]) == 1)
+		if (ft_isdigit(str[i]) == 1)
 		{
 			nb++;
-			break;
+			break ;
 		}
 		i++;
 	}
-	if(nb != 3)
-		return(1);
-	return(0);
+	if (nb != 3)
+		return (1);
+	return (0);
 }
 
-int check_c(t_cub *cub)
+int	check_c(t_cub *cub)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
 	while (cub->map2[i])
 	{
 		j = 0;
-		while(cub->map2[i][j])
+		while (cub->map2[i][j])
 		{
-			if(cub->map2[i][j] == 'C')
-				break;
+			if (cub->map2[i][j] == 'C')
+				break ;
 			j++;
 		}
-		if(cub->map2[i][j] == 'C')
-				break;
+		if (cub->map2[i][j] == 'C')
+			break ;
 		i++;
 	}
 	j++;
-	if(cub->map2[i][j] != ' ' && cub->map2[i][j] != '\t')
-		return(1);
-	while(cub->map2[i][j])
+	if (cub->map2[i][j] != ' ' && cub->map2[i][j] != '\t')
+		return (1);
+	while (cub->map2[i][j])
 	{
-		if(cub->map2[i][j] != ' ' && cub->map2[i][j] != '\t' )
-			break;
+		if (cub->map2[i][j] != ' ' && cub->map2[i][j] != '\t')
+			break ;
 		j++;
 	}
 	printf("---->>>>%s\n", &cub->map2[i][j]);
-	if(check_virgule(&cub->map2[i][j]) == 1)
-		return(1);
-	if(check_char_line(&cub->map2[i][j]) == 1)
-		return(1);
-	if(check_number(&cub->map2[i][j]) == 1)
-		return(1);
-	if(check_atoi(&cub->map2[i][j]) == 1)
+	if (check_virgule(&cub->map2[i][j]) == 1)
+		return (1);
+	if (check_char_line(&cub->map2[i][j]) == 1)
+		return (1);
+	if (check_number(&cub->map2[i][j]) == 1)
+		return (1);
+	if (check_atoi(&cub->map2[i][j]) == 1)
 	{
 		puts("icicicicici\n");
-		return(1);
+		return (1);
 	}
-	
-	return(0);
+	return (0);
 }
 
-long long ft_atoi(char *str)
+long long	ft_atoi(char *str)
 {
-    int i = 0;
-    long long sign = 1;
-    long long res = 0;
+	int			i;
+	long long	sign;
+	long long	res;
 
-    while((str[i] >= 9 && str[i] <= 13) || (str[i] == 32))
-        i++;
-    if(str[i] == '+' || str[i] == '-')
-    {
-        if(str[i] == '-')
-            sign = -1;
-        i++;
-    }
-    while(str[i] >= '0' && str[i] <= '9')
-    {
-        res = res * 10 + str[i] - '0';
-        i++;
-    }
-    return(res *sign);
+	i = 0;
+	sign = 1;
+	res = 0;
+	while ((str[i] >= 9 && str[i] <= 13) || (str[i] == 32))
+		i++;
+	if (str[i] == '+' || str[i] == '-')
+	{
+		if (str[i] == '-')
+			sign = -1;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		res = res * 10 + str[i] - '0';
+		i++;
+	}
+	return (res * sign);
 }
 
-int check_atoi(char *str)
+int	check_atoi(char *str)
 {
-	long long nb;
-	int i;
+	long long	nb;
+	int			i;
 
 	i = 0;
 	nb = 0;
-		puts("icicicicici\n");
+	puts("icicicicici\n");
 	nb = ft_atoi(str);
-	if(nb > 255)
-		return(1);
+	if (nb > 255)
+		return (1);
 	while ((str[i]) && str[i] != ',')
 		i++;
 	i++;
 	nb = 0;
 	nb = ft_atoi(&str[i]);
-	if(nb > 255)
-		return(1);
+	if (nb > 255)
+		return (1);
 	while ((str[i]) && str[i] != ',')
 		i++;
 	i++;
 	nb = 0;
 	nb = ft_atoi(&str[i]);
-	if(nb > 255)
-		return(1);
-	return(0);
+	if (nb > 255)
+		return (1);
+	return (0);
 }
 
-int check_f(t_cub *cub)
+int	check_f(t_cub *cub)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
 	while (cub->map2[i])
 	{
 		j = 0;
-		while(cub->map2[i][j])
+		while (cub->map2[i][j])
 		{
-			if(cub->map2[i][j] == 'F')
-				break;
+			if (cub->map2[i][j] == 'F')
+				break ;
 			j++;
 		}
-		if(cub->map2[i][j] == 'F')
-				break;
+		if (cub->map2[i][j] == 'F')
+			break ;
 		i++;
 	}
 	j++;
-	if(cub->map2[i][j] != ' ' && cub->map2[i][j] != '\t')
-		return(1);
-	while(cub->map2[i][j])
+	if (cub->map2[i][j] != ' ' && cub->map2[i][j] != '\t')
+		return (1);
+	while (cub->map2[i][j])
 	{
-		if(cub->map2[i][j] != ' ' && cub->map2[i][j] != '\t' )
-			break;
+		if (cub->map2[i][j] != ' ' && cub->map2[i][j] != '\t')
+			break ;
 		j++;
 	}
 	printf("---->>>>%s\n", &cub->map2[i][j]);
-	if(check_virgule(&cub->map2[i][j]) == 1)
-		return(1);
-	if(check_char_line(&cub->map2[i][j]) == 1)
-		return(1);
-	if(check_number(&cub->map2[i][j]) == 1)
-		return(1);
-	if(check_atoi(&cub->map2[i][j]) == 1)
+	if (check_virgule(&cub->map2[i][j]) == 1)
+		return (1);
+	if (check_char_line(&cub->map2[i][j]) == 1)
+		return (1);
+	if (check_number(&cub->map2[i][j]) == 1)
+		return (1);
+	if (check_atoi(&cub->map2[i][j]) == 1)
 	{
 		puts("icicicicici\n");
-		return(1);
+		return (1);
 	}
-	return(0);
+	return (0);
 }
 
-int check_id2(t_cub *cub)
+int	check_id2(t_cub *cub)
 {
-	if(check_c(&*cub) == 1)
-		return(1);
-	if(check_so(&*cub) == 1)
-		return(1);
-	if(check_no(&*cub) == 1)
-		return(1);
-	if(check_ea(&*cub) == 1)
-		return(1);
-	if(check_we(&*cub) == 1)
-		return(1);
-	if(check_f(&*cub) == 1)
-		return(1);
-	return(0);
+	if (check_c(&*cub) == 1)
+		return (1);
+	if (check_so(&*cub) == 1)
+		return (1);
+	if (check_no(&*cub) == 1)
+		return (1);
+	if (check_ea(&*cub) == 1)
+		return (1);
+	if (check_we(&*cub) == 1)
+		return (1);
+	if (check_f(&*cub) == 1)
+		return (1);
+	return (0);
 }
 
 int	ft_parsing(char **argv, t_cub *cub)
 {
 	// int i = 0;
-
 	//parcing des ID
 	cub->map = copy_map2(argv);
 	cub->map2 = ft_split2(cub->map, '\n');
-	
 	// while(cub->map2[i])
 	// {
 	//     printf("%s\n", cub->map2[i]);
@@ -466,13 +466,12 @@ int	ft_parsing(char **argv, t_cub *cub)
 		dprintf(2, "Pas les bons identifiants mon reuf\n");
 		exit(1);
 	}
-	if (check_id2(&*cub) == 1)
-	{
-		//free tt ici;
-		dprintf(2, "Pas les bons identifiants mon reuf 2\n");
-		exit(1);
-	}
-	
+	// if (check_id2(&*cub) == 1)
+	// {
+	// 	//free tt ici;
+	// 	dprintf(2, "Pas les bons identifiants mon reuf 2\n");
+	// 	exit(1);
+	// }
 	//parcing de la map
 	grep_last_line(&*cub);
 	cub->map_bis = copy_map(argv, &*cub);
@@ -484,14 +483,12 @@ int	ft_parsing(char **argv, t_cub *cub)
 		puts("NNNOOOOOOOOOOOOONN\n");
 		exit(1);
 	}
-
 	// while (cub->maps_finish[i])
 	// {
 	// 	printf("%s\n", cub->maps_finish[i]);
 	// 	i++;
 	// }
 	puts("GOOOOOOOOOOOD\n");
-
 	// i = 0;
 	// while(cub->map2[i])
 	// {

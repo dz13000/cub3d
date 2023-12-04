@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 19:22:35 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/04 09:11:02 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/04 10:24:55 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,11 @@ typedef struct s_cub
 	int		player_e;
 
 }			t_cub;
+
+typedef struct t_exec
+{
+	char	**final_map;
+}			t_exec;
 
 char		*get_next_line(int fd);
 int			ft_check(char *str);
