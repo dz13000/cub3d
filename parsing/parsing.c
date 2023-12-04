@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 01:05:36 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/04 09:10:33 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/04 09:14:26 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int check_no(t_cub *cub)
 		puts("SA EXISTE PAS\n");
 		return(1);
 	}
+	close(fd);
 	return(0);
 }
 
@@ -120,6 +121,7 @@ int check_so(t_cub *cub)
 		puts("SA EXISTE PAS\n");
 		return(1);
 	}
+	close(fd);
 	return(0);
 }
 
@@ -211,6 +213,7 @@ int check_we(t_cub *cub)
 		puts("SA EXISTE PAS\n");
 		return(1);
 	}
+	close(fd);
 	return(0);
 }
 
