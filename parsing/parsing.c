@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 01:05:36 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/04 17:13:37 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/05 16:27:45 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -501,6 +501,5 @@ int	ft_parsing(char **argv, t_cub *cub)
 	// free(map2);
 	return (0);
 }
-// verifier les bordures
 // remplacer le vide par des 0 et pas par des 1
 // check C   255 ,20 0, 214 cense etre faux

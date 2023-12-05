@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 01:50:51 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/04 17:35:49 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/05 16:19:52 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,24 +142,32 @@ int	check_zero(t_cub *cub)
 
 	i = 1;
 	j = 0;
-	while (cub->maps_finish[i])
+	cub->test = change_map2(cub->maps_finish);
+	int i2 = 0;
+	while (cub->test[i2])
+	{
+		printf("%s\n", cub->test[i2]);
+		i2++;
+	}
+	while (cub->test[i])
 	{
 		j = 0;
-		// while (cub->maps_finish[i][j] && cub->maps_finish[i][j] != '1')
+		// while (cub->test[i][j] && cub->test[i][j] != '1')
 		// 	j++;
-		while (cub->maps_finish[i][j])
+		while (cub->test[i][j])
 		{
 			// puts("TROU\n");
-			if (cub->maps_finish[i][j] == '0')
+			if (cub->test[i][j] == '0')
 			{
-				if (check_up(&*cub, i, j) == 1)
-					return (1);
-				if (check_down(&*cub, i, j) == 1)
-					return (1);
-				if (check_left(&*cub, i, j) == 1)
-					return (1);
-				if (check_right(&*cub, i, j) == 1)
-					return (1);
+				// printf("--->>>%c\n", cub->test[i - 1][j]);
+				if(cub->test[i - 1][j] == 'v')
+					return(1);
+				if(cub->test[i + 1][j] == 'v')
+					return(1);
+				if(cub->test[i][j - 1] == 'v')
+					return(1);
+				if(cub->test[i][j + 1] == 'v')
+					return(1);
 			}
 			j++;
 		}

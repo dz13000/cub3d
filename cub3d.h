@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 19:22:35 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/04 10:24:55 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/05 16:00:36 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_cub
 	char	*map_bis;
 	char	**map2_bis;
 	char	**maps_finish;
+	char	**test;
 	int		count;
 	int		line_no;
 	int		line_so;
@@ -83,5 +84,7 @@ int			verif_map(t_cub *cub);
 char		**split_map(char **tab);
 int			check_atoi(char *str);
 long long	ft_atoi(char *str);
+int			check_zero(t_cub *cub);
+char		**change_map2(char **map);
 
 #endif

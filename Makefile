@@ -8,6 +8,7 @@ SRCS =	parsing/get_next_line.c \
 		parsing/verif_map2.c \
 		parsing/check_player.c \
 		parsing/check_spaces.c \
+		parsing/check_zero.c \
 		main.c \
 
 
