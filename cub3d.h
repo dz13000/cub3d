@@ -6,21 +6,22 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 19:22:35 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/05 16:00:36 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/07 15:06:43 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB_3D
 # define CUB_3D
 
+# include "mlx/mlx/mlx.h"
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 
-# ifndef BUFFER_SIZE
+// # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1
-# endif
+// # endif
 
 typedef struct s_cub
 {

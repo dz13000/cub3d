@@ -9,6 +9,7 @@ SRCS =	parsing/get_next_line.c \
 		parsing/check_player.c \
 		parsing/check_spaces.c \
 		parsing/check_zero.c \
+		graph/init.c \
 		main.c \
 
 
@@ -18,13 +19,13 @@ INC = -Iinclude
 
 FLAGS = -g3 -Wall -Werror -Wextra
 
+MLX_FLAGS		=	-lm -lXext -lX11
 
 OBJS = ${SRCS:.c=.o}
 
-LIBFT = libft.a
 
 ${NAME} : ${OBJS} 
-		cc $(OBJS) ${INC}  ${FLAGS} -o $(NAME)
+		cc $(OBJS) ${INC} mlx/libmlx.a mlx/libmlx_Linux.a -L. -lXext -L. -lX11 -lm ${FLAGS} -o $(NAME)
 
 
 
@@ -33,8 +34,7 @@ all : ${NAME}
 %.o:%.c
 		cc ${FLAGS} ${INC}  -c $< -o $@
 
-leaks: $(NAME)
-	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes   ./cub3d map.cub
+
 
 clean :
 		rm -rf ${OBJS}

@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 01:50:51 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/05 16:37:30 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/07 10:25:58 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,12 +143,12 @@ int	check_zero(t_cub *cub)
 	i = 1;
 	j = 0;
 	cub->test = change_map2(cub->maps_finish);
-	int i2 = 0;
-	while (cub->test[i2])
-	{
-		printf("%s\n", cub->test[i2]);
-		i2++;
-	}
+	// int i2 = 0;
+	// while (cub->test[i2])
+	// {
+	// 	printf("%s\n", cub->test[i2]);
+	// 	i2++;
+	// }
 	while (cub->test[i])
 	{
 		j = 0;
