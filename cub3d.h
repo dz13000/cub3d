@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 19:22:35 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/07 15:06:43 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/09 20:22:41 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,11 @@ typedef struct s_cub
 	int		player_s;
 	int		player_w;
 	int		player_e;
+	char	*path_we;
+	char	*path_no;
+	char	*path_so;
+	char	*path_ea;
+
 
 }			t_cub;
 
@@ -148,5 +153,6 @@ int			check_atoi(char *str);
 long long	ft_atoi(char *str);
 int			check_zero(t_cub *cub);
 char		**change_map2(char **map);
+void    ft_init(t_exec *exec, t_cub *cub);
 
 #endif

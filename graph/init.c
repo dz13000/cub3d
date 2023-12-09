@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 10:37:17 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/07 11:31:50 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/09 20:57:25 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,12 @@ void	view_letter(t_exec *exec)
 		exec->ray.dirx = 0;
 		exec->ray.diry = 1;
 	}
+}
+int	main_loop(t_exec *exec)
+{
+	calc(&*exec);
+	draw(&*exec);
+	return (0);
 }
 
 void    define_vector(t_exec *exec)
@@ -149,8 +155,15 @@ void	load_texture(t_exec *exec)
 	load_image(exec, exec->ray.texture[3], exec->ray.paths[3],
 		&exec->img);
 }
+void	define_texture(t_exec *exec, t_cub *cub)
+{
+	exec->ray.paths[0] = cub->path_ea; 
+	exec->ray.paths[1] = cub->path_no;
+	exec->ray.paths[2] = cub->path_we;
+	exec->ray.paths[3] = cub->path_so;
+}
 
-void    ft_init(t_exec *exec)
+void    ft_init(t_exec *exec, t_cub *cub)
 {
     exec->mlx = mlx_init();
     if(!exec->mlx)
@@ -167,5 +180,11 @@ void    ft_init(t_exec *exec)
     exec->ray.rotspeed = 0.09;
 	exec->window = mlx_new_window(exec->mlx, WIDTH, HEIGHT, "cub3d");
     //donner les  chemins des textures
+	define_texture(&*exec, &*cub);
 	load_texture(&*exec);
+	exec->img.img = mlx_new_image(exec->mlx, WIDTH, HEIGHT);
+	exec->img.addr = (int *)mlx_get_data_addr(exec->img.img,
+			&exec->img.bits_per_pixel, &exec->img.size_l,
+			&exec->img.endian);
+	main_loop(&*exec);
 }

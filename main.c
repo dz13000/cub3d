@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 19:11:53 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/07 11:08:57 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/09 20:28:43 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,7 @@ int	main(int ac, char **argv, char **env)
 		return (printf("Pas assez d'arguments"), 1);
 	if (ft_parsing(argv, &cub) == 1)
 		return (1);
-	//tt free sauf maps_finish
+	//tt free sauf maps_finish et les chemins;
 
 	exec.final_map = cub.maps_finish;
 	int i = 0;
@@ -208,6 +208,6 @@ int	main(int ac, char **argv, char **env)
 		printf("%s\n", exec.final_map[i]);
 		i++;
 	}
-	// ft_init();
+	ft_init(&exec, &cub);
 	return (0);
 }

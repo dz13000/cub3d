@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 01:05:36 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/05 16:38:02 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/09 20:20:40 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,14 @@ int	check_no(t_cub *cub)
 		}
 		j++;
 	}
-	printf("---->>>>%s\n", &cub->map2[i][j]);
+	printf("chemin---->>>>%s\n", &cub->map2[i][j]);
 	fd = open(&cub->map2[i][j], O_RDONLY);
 	if (fd == -1)
 	{
 		puts("SA EXISTE PAS\n");
 		return (1);
 	}
+	cub->path_no = ft_strdup(&cub->map2[i][j]);
 	close(fd);
 	return (0);
 }
@@ -121,6 +122,7 @@ int	check_so(t_cub *cub)
 		puts("SA EXISTE PAS\n");
 		return (1);
 	}
+	cub->path_so = ft_strdup(&cub->map2[i][j]);
 	close(fd);
 	return (0);
 }
@@ -167,6 +169,7 @@ int	check_ea(t_cub *cub)
 		puts("CA N'EXISTE PAS\n");
 		return (1);
 	}
+	cub->path_ea = ft_strdup(&cub->map2[i][j]);
 	close(fd);
 	return (0);
 }
@@ -213,6 +216,7 @@ int	check_we(t_cub *cub)
 		puts("SA EXISTE PAS\n");
 		return (1);
 	}
+	cub->path_we = ft_strdup(&cub->map2[i][j]);
 	close(fd);
 	return (0);
 }
