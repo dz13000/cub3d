@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 19:22:35 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/09 20:22:41 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/10 00:31:26 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef struct s_cub
 typedef struct	s_ray
 {
 	int		**buf;
+	int		re_buf;
 	int		**texture;
 	double	movespeed;
 	double	rotspeed;
@@ -105,6 +106,8 @@ typedef struct	s_ray
 	int		drawstart; //position de debut ou il faut dessiner
 	int		drawend; //position de fin ou il faut dessiner
 	int		x; //permet de parcourir tous les rayons
+	int		floor_colors[3];
+	int		ceiling_colors[3];
 }					t_ray;
 
 typedef struct t_exec

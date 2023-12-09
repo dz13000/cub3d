@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 10:37:17 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/09 20:57:25 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/10 00:56:29 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,194 @@ void	view_letter(t_exec *exec)
 		exec->ray.diry = 1;
 	}
 }
+
+void	init_buff(t_exec *exec)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	j = -1;
+	while (++i < HEIGHT)
+		while (++j < WIDTH)
+			exec->ray.buf[i][j] = 0;
+}
+
+void	init_values(t_exec *exec, int x)
+{
+	double	camerax;
+
+	if (exec->ray.side == 0)
+		exec->ray.perpwalldist = (exec->ray.mapx - exec->ray.posx + (1
+					- exec->ray.stepx) / 2) / exec->ray.raydirx;
+	else
+		exec->ray.perpwalldist = (exec->ray.mapy - exec->ray.posy + (1
+					- exec->ray.stepy) / 2) / exec->ray.raydiry;
+	camerax = 2 * x / (double)WIDTH - 1;
+	exec->ray.raydirx = exec->ray.dirx + exec->ray.planx * camerax;
+	exec->ray.raydiry = exec->ray.diry + exec->ray.plany * camerax;
+	exec->ray.mapx = (int)exec->ray.posx;
+	exec->ray.mapy = (int)exec->ray.posy;
+	exec->ray.deltadistx = fabs(1 / exec->ray.raydirx);
+	exec->ray.deltadisty = fabs(1 / exec->ray.raydiry);
+}
+void	define(t_ray *ray)
+{
+	if (ray->raydirx < 0)
+	{
+		ray->stepx = -1;
+		ray->sidedistx = (ray->posx - ray->mapx) * ray->deltadistx;
+	}
+	else
+	{
+		ray->stepx = 1;
+		ray->sidedistx = (ray->mapx + 1.0 - ray->posx) * ray->deltadistx;
+	}
+	if (ray->raydiry < 0)
+	{
+		ray->stepy = -1;
+		ray->sidedisty = (ray->posy - ray->mapy) * ray->deltadisty;
+	}
+	else
+	{
+		ray->stepy = 1;
+		ray->sidedisty = (ray->mapy + 1.0 - ray->posy) * ray->deltadisty;
+	}
+}
+void	define_side(t_exec *exec)
+{
+	int	hit;
+
+	hit = 0;
+	while (hit == 0)
+	{
+		if (exec->ray.sidedistx < exec->ray.sidedisty)
+		{
+			exec->ray.sidedistx += exec->ray.deltadistx;
+			exec->ray.mapx += exec->ray.stepx;
+			exec->ray.side = 0;
+		}
+		else
+		{
+			exec->ray.sidedisty += exec->ray.deltadisty;
+			exec->ray.mapy += exec->ray.stepy;
+			exec->ray.side = 1;
+		}
+		if (exec->final_map[exec->ray.mapx][exec->ray.mapy] > '0')
+			hit = 1;
+	}
+}
+
+void	define_wallx(t_exec *exec, double *wallx, int *texnum, int x)
+{
+	init_values(&*exec, x);
+	define(&exec->ray);
+	define_side(&*exec);
+	define_draw(&*exec);
+	*texnum = choose_texture(&*exec, *texnum);
+	if (exec->ray.side == 0)
+		*wallx = exec->ray.posy + exec->ray.perpwalldist * exec->ray.raydiry;
+	else
+		*wallx = exec->ray.posx + exec->ray.perpwalldist * exec->ray.raydirx;
+}
+void	boucle_a_caca(t_exec *exec, int x, int texNum, int texX)
+{
+	double	step;
+	double	texpos;
+	int		texy;
+	int		color;
+	int		y;
+
+	y = exec->ray.drawstart;
+	step = 1.0 * 64 / exec->ray.lineheight;
+	texpos = (exec->ray.drawstart - HEIGHT / 2 + exec->ray.lineheight / 2)
+		* step;
+	while (y < exec->ray.drawend)
+	{
+		texy = (int)texpos & (64 - 1);
+		texpos += step;
+		color = exec->ray.texture[texNum][64 * texy + texX];
+		if (exec->ray.side == 1)
+			color = (color >> 1) & 8355711;
+		exec->ray.buf[y][x] = color;
+		exec->ray.re_buf = 1;
+		y++;
+	}
+}
+int	set_rgb(int rgb[3])
+{
+	return (rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
+}
+// recup rgb
+void	ceiling_or_floor(t_exec *exec, int x, int q)
+{
+	int	i;
+	int	y;
+
+	i = 0;
+	if (q == 0)
+	{
+		while (i < exec->ray.drawstart && i < HEIGHT)
+		{
+			exec->ray.buf[i][x] = set_rgb(exec->ray.ceiling_colors);
+			exec->ray.re_buf = 1;
+			i++;
+		}
+		return ;
+	}
+	y = exec->ray.drawend;
+	while (y < HEIGHT - 1)
+	{
+		exec->ray.buf[y][x] = set_rgb(exec->ray.floor_colors);
+		exec->ray.re_buf = 1;
+		y++;
+	}
+}
+
+void	calc(t_exec *exec)
+{
+	double	wallx;
+	int		x;
+	int		texnum;
+	int		texx;
+
+	x = 0;
+	init_buff(&*exec);
+	while (x < WIDTH)
+	{
+		define_wallx(&*exec, &wallx, &texnum, x);
+		wallx -= floor(wallx);
+		texx = (int)(wallx * (double)64);
+		if (exec->ray.side == 0 && exec->ray.raydirx > 0)
+			texx = 64 - texx - 1;
+		if (exec->ray.side == 1 && exec->ray.raydiry < 0)
+			texx = 64 - texx - 1;
+		boucle_a_caca(&*exec, x, texnum, texx);
+		ceiling_or_floor(&*exec, x, 0);
+		ceiling_or_floor(&*exec, x, 1);
+		x++;
+	}
+}
+
+void	draw(t_exec *exec)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			exec->img.addr[y * WIDTH + x] = exec->ray.buf[y][x];
+			x++;
+		}
+		y++;
+	}
+	mlx_put_image_to_window(exec->mlx, exec->window, exec->img.img, 0, 0);
+}
+
 int	main_loop(t_exec *exec)
 {
 	calc(&*exec);
@@ -162,6 +350,87 @@ void	define_texture(t_exec *exec, t_cub *cub)
 	exec->ray.paths[2] = cub->path_we;
 	exec->ray.paths[3] = cub->path_so;
 }
+void	move_up(t_exec *exec)
+{
+	char	pos_x;
+	char	pos_y;
+	int		x;
+	int		y;
+
+	x = (int)(exec->ray.posx + exec->ray.dirx * exec->ray.movespeed);
+	y = (int)(exec->ray.posy + exec->ray.diry * exec->ray.movespeed);
+	pos_x = exec->final_map[x][(int)(exec->ray.posy)];
+	pos_y = exec->final_map[(int)(exec->ray.posx)][y];
+	if (pos_x == '0')
+		exec->ray.posx += exec->ray.dirx * exec->ray.movespeed;
+	if (pos_y == '0')
+		exec->ray.posy += exec->ray.diry * exec->ray.movespeed;
+}
+
+void	move_down(t_exec *exec)
+{
+	if (exec->final_map[(int)(exec->ray.posx - exec->ray.dirx
+			* exec->ray.movespeed)][(int)(exec->ray.posy)] == '0')
+		exec->ray.posx -= exec->ray.dirx * exec->ray.movespeed;
+	if (exec->final_map[(int)(exec->ray.posx)][(int)(exec->ray.posy
+			- exec->ray.diry * exec->ray.movespeed)] == '0')
+		exec->ray.posy -= exec->ray.diry * exec->ray.movespeed;
+}
+
+void	move_left(t_exec *exec)
+{
+	if (exec->final_map[(int)(exec->ray.posx - exec->ray.diry
+			* exec->ray.movespeed)][(int)(exec->ray.posy)] == '0')
+		exec->ray.posx -= exec->ray.diry * exec->ray.movespeed;
+	if (exec->final_map[(int)(exec->ray.posx)][(int)(exec->ray.posy
+			+ exec->ray.dirx * exec->ray.movespeed)] == '0')
+		exec->ray.posy += exec->ray.dirx * exec->ray.movespeed;
+}
+
+void	move_right(t_exec *exec)
+{
+	if (exec->final_map[(int)(exec->ray.posx + exec->ray.diry
+			* exec->ray.movespeed)][(int)(exec->ray.posy)] == '0')
+		exec->ray.posx += exec->ray.diry * exec->ray.movespeed;
+	if (exec->final_map[(int)(exec->ray.posx)][(int)(exec->ray.posy
+			- exec->ray.dirx * exec->ray.movespeed)] == '0')
+		exec->ray.posy -= exec->ray.dirx * exec->ray.movespeed;
+}
+
+int	key_press(int key, t_exec *exec)
+{
+	if (key == 'w')
+		move_up(&*exec);
+	if (key == 's')
+		move_down(&*exec);
+	if (key == 'a')
+		move_left(&*exec);
+	if (key == 'd')
+		move_right(&*exec);
+	if (key == 65363)
+		rotate_right(&*exec);
+	if (key == 65361)
+		rotate_left(&*exec);
+	if (key == 65307 || key == 113)
+	{
+		//free
+		exit(0);
+	}
+	mlx_clear_window(&*exec->mlx, &*exec->window);
+	main_loop(&*exec);
+	return (0);
+}
+
+int	free_all(t_exec *exec)
+{
+	int	i;
+
+	i = -1;
+	while (++i < 4)
+		free(exec->ray.paths[i]);
+	exit(1);
+	return (0);
+}
 
 void    ft_init(t_exec *exec, t_cub *cub)
 {
@@ -174,7 +443,7 @@ void    ft_init(t_exec *exec, t_cub *cub)
     check_letter(&*exec);
     view_letter(&*exec);
     define_vector(&*exec);
-    //
+    exec->ray.re_buf = 1;
     malloc_map(&*exec);
     exec->ray.movespeed = 0.5;
     exec->ray.rotspeed = 0.09;
@@ -187,4 +456,10 @@ void    ft_init(t_exec *exec, t_cub *cub)
 			&exec->img.bits_per_pixel, &exec->img.size_l,
 			&exec->img.endian);
 	main_loop(&*exec);
+	mlx_hook(exec->window, 0, 1L << 0, &key_press, &*exec);
+	mlx_hook(exec->window, 17, 0, &free_all, &*exec);
+	mlx_key_hook(exec->window, &key_press, &*exec);
+	mlx_loop_hook(exec->mlx, &main_loop, &*exec);
+	mlx_loop(exec->mlx);
+	return(0);
 }
