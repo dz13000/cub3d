@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 10:37:17 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/10 00:56:29 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/10 02:37:48 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,48 @@ void    check_letter(t_exec *exec)
 {
     int i;
     int j;
+	int nb;
 
     i = 0;
     j = 0;
+	nb = 0;
     while(exec->final_map[i])
     {
         j = 0;
         while(exec->final_map[i][j])
         {
             if(exec->final_map[i][j] == 'N')
+			{
                 exec->letter = 'N';
+				nb++;
+				break;
+			}
             if(exec->final_map[i][j] == 'S')
+			{
                 exec->letter = 'S';
+				nb++;
+				break;
+			}
             if(exec->final_map[i][j] == 'W')
+			{
                 exec->letter = 'W';
+				nb++;
+				break;
+			}
             if(exec->final_map[i][j] == 'E')
+			{
                 exec->letter = 'E';
+				nb++;
+				break;
+			}
             j++;
         }
+		if(nb == 1)
+			break;
         i++;
     }
+	exec->ray.posx = (double)i;
+	exec->ray.posy = (double)j;
 }
 
 void	view_letter(t_exec *exec)
@@ -137,6 +159,29 @@ void	define_side(t_exec *exec)
 		if (exec->final_map[exec->ray.mapx][exec->ray.mapy] > '0')
 			hit = 1;
 	}
+}
+
+void	define_draw(t_exec *exec)
+{
+	exec->ray.lineheight = (int)(HEIGHT / exec->ray.perpwalldist);
+	exec->ray.drawstart = -exec->ray.lineheight / 2 + HEIGHT / 2;
+	if (exec->ray.drawstart < 0)
+		exec->ray.drawstart = 0;
+	exec->ray.drawend = exec->ray.lineheight / 2 + HEIGHT / 2;
+	if (exec->ray.drawend >= HEIGHT || exec->ray.drawend < 0)
+		exec->ray.drawend = HEIGHT - 1;
+}
+int	choose_texture(t_exec *exec, int texNum)
+{
+	if (exec->ray.raydirx > 0 && exec->ray.side == 0)
+		texNum = 0;
+	else if (exec->ray.raydirx < 0 && exec->ray.side == 0)
+		texNum = 1;
+	else if (exec->ray.raydiry > 0 && exec->ray.side == 1)
+		texNum = 2;
+	else
+		texNum = 3;
+	return (texNum);
 }
 
 void	define_wallx(t_exec *exec, double *wallx, int *texnum, int x)
@@ -320,6 +365,9 @@ void	load_image(t_exec *exec, int *texture, char *path, t_img *img)
 	if (!img->img)
 	{
 		printf("Error\nInvalid texture path\n");
+		printf("--->>>%s\n", path);
+		//free
+		exit(1);
 	}
 	img->addr = (int *)mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->size_l,
 			&img->endian);
@@ -349,6 +397,12 @@ void	define_texture(t_exec *exec, t_cub *cub)
 	exec->ray.paths[1] = cub->path_no;
 	exec->ray.paths[2] = cub->path_we;
 	exec->ray.paths[3] = cub->path_so;
+	exec->ray.floor_colors[0] = cub->f[0];
+	exec->ray.floor_colors[1] = cub->f[1];
+	exec->ray.floor_colors[2] = cub->f[2];
+	exec->ray.ceiling_colors[0] = cub->c[0];
+	exec->ray.ceiling_colors[1] = cub->c[1];
+	exec->ray.ceiling_colors[2] = cub->c[2];
 }
 void	move_up(t_exec *exec)
 {
@@ -396,6 +450,41 @@ void	move_right(t_exec *exec)
 			- exec->ray.dirx * exec->ray.movespeed)] == '0')
 		exec->ray.posy -= exec->ray.dirx * exec->ray.movespeed;
 }
+
+void	rotate_left(t_exec *exec)
+{
+	double	olddirx;
+	double	oldplanex;
+
+	olddirx = exec->ray.dirx;
+	exec->ray.dirx = exec->ray.dirx * cos(exec->ray.rotspeed)
+		- exec->ray.diry * sin(exec->ray.rotspeed);
+	exec->ray.diry = olddirx * sin(exec->ray.rotspeed) + exec->ray.diry
+		* cos(exec->ray.rotspeed);
+	oldplanex = exec->ray.planx;
+	exec->ray.planx = exec->ray.planx * cos(exec->ray.rotspeed)
+		- exec->ray.plany * sin(exec->ray.rotspeed);
+	exec->ray.plany = oldplanex * sin(exec->ray.rotspeed) + exec->ray.plany
+		* cos(exec->ray.rotspeed);
+}
+
+void	rotate_right(t_exec *exec)
+{
+	double	olddirx;
+	double	oldplanex;
+
+	olddirx = exec->ray.dirx;
+	exec->ray.dirx = exec->ray.dirx * cos(-exec->ray.rotspeed)
+		- exec->ray.diry * sin(-exec->ray.rotspeed);
+	exec->ray.diry = olddirx * sin(-exec->ray.rotspeed) + exec->ray.diry
+		* cos(-exec->ray.rotspeed);
+	oldplanex = exec->ray.planx;
+	exec->ray.planx = exec->ray.planx * cos(-exec->ray.rotspeed)
+		- exec->ray.plany * sin(-exec->ray.rotspeed);
+	exec->ray.plany = oldplanex * sin(-exec->ray.rotspeed)
+		+ exec->ray.plany * cos(-exec->ray.rotspeed);
+}
+
 
 int	key_press(int key, t_exec *exec)
 {
@@ -461,5 +550,4 @@ void    ft_init(t_exec *exec, t_cub *cub)
 	mlx_key_hook(exec->window, &key_press, &*exec);
 	mlx_loop_hook(exec->mlx, &main_loop, &*exec);
 	mlx_loop(exec->mlx);
-	return(0);
 }

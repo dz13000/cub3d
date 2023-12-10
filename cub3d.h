@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 19:22:35 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/10 00:31:26 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/10 01:51:03 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+#include <math.h>
 
 // # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1
@@ -70,8 +71,8 @@ typedef struct s_cub
 	char	*path_no;
 	char	*path_so;
 	char	*path_ea;
-
-
+	int		f[3];
+	int		c[3];
 }			t_cub;
 
 typedef struct	s_ray
@@ -152,7 +153,8 @@ int			check_down(t_cub *cub, int i, int j);
 int			check_right(t_cub *cub, int i, int j);
 int			verif_map(t_cub *cub);
 char		**split_map(char **tab);
-int			check_atoi(char *str);
+int			check_atoi_c(char *str, t_cub *cub);
+int			check_atoi_f(char *str, t_cub *cub);
 long long	ft_atoi(char *str);
 int			check_zero(t_cub *cub);
 char		**change_map2(char **map);

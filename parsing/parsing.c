@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 01:05:36 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/09 20:20:40 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/10 01:43:30 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -331,7 +331,7 @@ int	check_c(t_cub *cub)
 		return (1);
 	if (check_number(&cub->map2[i][j]) == 1)
 		return (1);
-	if (check_atoi(&cub->map2[i][j]) == 1)
+	if (check_atoi_c(&cub->map2[i][j], &*cub) == 1)
 	{
 		puts("icicicicici\n");
 		return (1);
@@ -364,7 +364,7 @@ long long	ft_atoi(char *str)
 	return (res * sign);
 }
 
-int	check_atoi(char *str)
+int	check_atoi_c(char *str, t_cub *cub)
 {
 	long long	nb;
 	int			i;
@@ -373,6 +373,7 @@ int	check_atoi(char *str)
 	nb = 0;
 	puts("icicicicici\n");
 	nb = ft_atoi(str);
+	cub->c[0] = (int)nb;
 	if (nb > 255)
 		return (1);
 	while ((str[i]) && str[i] != ',')
@@ -380,6 +381,7 @@ int	check_atoi(char *str)
 	i++;
 	nb = 0;
 	nb = ft_atoi(&str[i]);
+	cub->c[1] = (int)nb;
 	if (nb > 255)
 		return (1);
 	while ((str[i]) && str[i] != ',')
@@ -387,6 +389,38 @@ int	check_atoi(char *str)
 	i++;
 	nb = 0;
 	nb = ft_atoi(&str[i]);
+	cub->c[2] = (int)nb;
+	if (nb > 255)
+		return (1);
+	return (0);
+}
+
+int	check_atoi_f(char *str, t_cub *cub)
+{
+	long long	nb;
+	int			i;
+
+	i = 0;
+	nb = 0;
+	puts("icicicicici\n");
+	nb = ft_atoi(str);
+	cub->f[0] = (int)nb;
+	if (nb > 255)
+		return (1);
+	while ((str[i]) && str[i] != ',')
+		i++;
+	i++;
+	nb = 0;
+	nb = ft_atoi(&str[i]);
+	cub->f[1] = (int)nb;
+	if (nb > 255)
+		return (1);
+	while ((str[i]) && str[i] != ',')
+		i++;
+	i++;
+	nb = 0;
+	nb = ft_atoi(&str[i]);
+	cub->f[2] = (int)nb;
 	if (nb > 255)
 		return (1);
 	return (0);
@@ -428,7 +462,7 @@ int	check_f(t_cub *cub)
 		return (1);
 	if (check_number(&cub->map2[i][j]) == 1)
 		return (1);
-	if (check_atoi(&cub->map2[i][j]) == 1)
+	if (check_atoi_f(&cub->map2[i][j], &*cub) == 1)
 	{
 		puts("icicicicici\n");
 		return (1);
