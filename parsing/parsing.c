@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 01:05:36 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/10 01:43:30 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/19 02:34:51 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	grep_last_line(t_cub *cub)
 	cub->last_line[0] = cub->map2[i][j];
 	cub->last_line[1] = cub->map2[i][j + 1];
 	cub->last_line[2] = '\0';
-	printf("------%s\n", cub->last_line);
 }
 
 int	check_no(t_cub *cub)
@@ -72,6 +71,7 @@ int	check_no(t_cub *cub)
 	fd = open(&cub->map2[i][j], O_RDONLY);
 	if (fd == -1)
 	{
+		cub->nb_fr = 1;
 		puts("SA EXISTE PAS\n");
 		return (1);
 	}
@@ -119,6 +119,7 @@ int	check_so(t_cub *cub)
 	fd = open(&cub->map2[i][j], O_RDONLY);
 	if (fd == -1)
 	{
+		
 		puts("SA EXISTE PAS\n");
 		return (1);
 	}
@@ -166,6 +167,7 @@ int	check_ea(t_cub *cub)
 	fd = open(&cub->map2[i][j], O_RDONLY);
 	if (fd == -1)
 	{
+		cub->nb_fr = 2;
 		puts("CA N'EXISTE PAS\n");
 		return (1);
 	}
@@ -213,6 +215,7 @@ int	check_we(t_cub *cub)
 	fd = open(&cub->map2[i][j], O_RDONLY);
 	if (fd == -1)
 	{
+		cub->nb_fr = 3;
 		puts("SA EXISTE PAS\n");
 		return (1);
 	}
@@ -324,7 +327,6 @@ int	check_c(t_cub *cub)
 			break ;
 		j++;
 	}
-	printf("---->>>>%s\n", &cub->map2[i][j]);
 	if (check_virgule(&cub->map2[i][j]) == 1)
 		return (1);
 	if (check_char_line(&cub->map2[i][j]) == 1)
@@ -333,7 +335,6 @@ int	check_c(t_cub *cub)
 		return (1);
 	if (check_atoi_c(&cub->map2[i][j], &*cub) == 1)
 	{
-		puts("icicicicici\n");
 		return (1);
 	}
 	return (0);
@@ -371,7 +372,6 @@ int	check_atoi_c(char *str, t_cub *cub)
 
 	i = 0;
 	nb = 0;
-	puts("icicicicici\n");
 	nb = ft_atoi(str);
 	cub->c[0] = (int)nb;
 	if (nb > 255)
@@ -402,7 +402,6 @@ int	check_atoi_f(char *str, t_cub *cub)
 
 	i = 0;
 	nb = 0;
-	puts("icicicicici\n");
 	nb = ft_atoi(str);
 	cub->f[0] = (int)nb;
 	if (nb > 255)
@@ -489,24 +488,49 @@ int	check_id2(t_cub *cub)
 
 int	ft_parsing(char **argv, t_cub *cub)
 {
-	// int i = 0;
 	//parcing des ID
 	cub->map = copy_map2(argv);
 	cub->map2 = ft_split2(cub->map, '\n');
-	// while(cub->map2[i])
-	// {
-	//     printf("%s\n", cub->map2[i]);
-	//     i++;
-	// }
 	if (check_id(&*cub) == 1)
 	{
 		//free tt ici;
+		free(cub->map);
+		int i;
+		i = 0;
+		while (cub->map2[i])
+			i++;
+		while(i >= 0)
+			free(cub->map2[i--]);
+		free(cub->map2);
+		//
 		dprintf(2, "Pas les bons identifiants mon reuf\n");
 		exit(1);
 	}
 	if (check_id2(&*cub) == 1)
 	{
 		//free tt ici;
+		free(cub->map);
+		int i;
+		i = 0;
+		while (cub->map2[i])
+			i++;
+		while(i >= 0)
+			free(cub->map2[i--]);
+		free(cub->map2);
+		if(cub->nb_fr == 1)
+			free(cub->path_so);
+		if(cub->nb_fr == 2)
+		{
+			free(cub->path_so);
+			free(cub->path_no);
+		}
+		if(cub->nb_fr == 3)
+		{
+			free(cub->path_so);
+			free(cub->path_no);
+			free(cub->path_ea);
+		}
+		//
 		dprintf(2, "Pas les bons identifiants mon reuf 2\n");
 		exit(1);
 	}
@@ -518,25 +542,37 @@ int	ft_parsing(char **argv, t_cub *cub)
 	if (verif_map(&*cub) == 1)
 	{
 		//free tt ici;
+		free(cub->map);
+		int i;
+		i = 0;
+		while (cub->map2[i])
+			i++;
+		while(i >= 0)
+			free(cub->map2[i--]);
+		free(cub->map2);
+		free(cub->path_so);
+		free(cub->path_no);
+		free(cub->path_ea);
+		free(cub->path_we);
+		free(cub->map_bis);
+		i = 0;
+		while(cub->map2_bis[i])
+			i++;
+		while(i >= 0)
+			free(cub->map2_bis[i--]);
+		free(cub->map2_bis);
+		i = 0;
+		while(cub->maps_finish[i])
+			i++;
+		while(i >= 0)
+			free(cub->maps_finish[i--]);
+		free(cub->maps_finish);
+		free(cub->last_line);
 		puts("NNNOOOOOOOOOOOOONN\n");
 		exit(1);
 	}
-	// while (cub->maps_finish[i])
-	// {
-	// 	printf("%s\n", cub->maps_finish[i]);
-	// 	i++;
-	// }
 	puts("GOOOOOOOOOOOD\n");
-	// i = 0;
-	// while(cub->map2[i])
-	// {
-	//     printf("%s\n", cub->map2[i]);
-	//     i++;
-	// }
-	// while (i && i--)
-	// 	free(map2[i]);
-	// free(map);
-	// free(map2);
 	return (0);
 }
+// ------------------------------------------------------------------------
 // check C   255 ,20 0, 214 cense etre faux

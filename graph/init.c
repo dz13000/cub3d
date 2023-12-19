@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 10:37:17 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/10 02:37:48 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/18 23:16:57 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -517,6 +517,7 @@ int	free_all(t_exec *exec)
 	i = -1;
 	while (++i < 4)
 		free(exec->ray.paths[i]);
+	(void)exec;
 	exit(1);
 	return (0);
 }

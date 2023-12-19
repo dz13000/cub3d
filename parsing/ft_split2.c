@@ -61,14 +61,6 @@ char	**ft_decoupe2(char **tab, char *str, int k, char c)
 		}
 		else
 		{
-			// if (i != 0 && str[i - 1] == '\n' && str[i] == '\n' )
-			// {
-			// 	tab[j] = malloc(sizeof(char) * 4);
-			// 	if (!tab)
-			// 		return (ft_free(tab, j));
-			// 	tab[j][0] = '\0';
-			// 	j++;
-			// }
 			i++;
 		}
 	}

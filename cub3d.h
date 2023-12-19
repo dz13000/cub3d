@@ -6,46 +6,44 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 19:22:35 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/10 01:51:03 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/19 02:05:51 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB_3D
-# define CUB_3D
+#ifndef CUB3D_H
+# define CUB3D_H
 
 # include "mlx/mlx/mlx.h"
 # include <fcntl.h>
+# include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-#include <math.h>
 
-// # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
-// # endif
+# define BUFFER_SIZE 1
 
-#define ROTATE_LEFT 65361
-#define ROTATE_RIGHT 65363
-#define FORWARD_W_Z 119
-#define BACK_S_S 115
-#define RIGHT_D_D 100
-#define LEFT_A_Q 97
+# define ROTATE_LEFT 65361
+# define ROTATE_RIGHT 65363
+# define FORWARD_W_Z 119
+# define BACK_S_S 115
+# define RIGHT_D_D 100
+# define LEFT_A_Q 97
 # define WIDTH 1680
 # define HEIGHT 680
 
-typedef struct		s_img
+typedef struct s_img
 {
-	void			*mlx_ptr;
-	void			*mlx_win;
-	void			*img;
-	int				*addr;
-	int				bits_per_pixel;
-	int				line_length;
+	void	*mlx_ptr;
+	void	*mlx_win;
+	void	*img;
+	int		*addr;
+	int		bits_per_pixel;
+	int		line_length;
 	int		size_l;
-	int				endian;
+	int		endian;
 	int		img_width;
 	int		img_height;
-}					t_img;
+}			t_img;
 
 typedef struct s_cub
 {
@@ -73,9 +71,10 @@ typedef struct s_cub
 	char	*path_ea;
 	int		f[3];
 	int		c[3];
+	int		nb_fr;
 }			t_cub;
 
-typedef struct	s_ray
+typedef struct s_ray
 {
 	int		**buf;
 	int		re_buf;
@@ -83,40 +82,40 @@ typedef struct	s_ray
 	double	movespeed;
 	double	rotspeed;
 	char	*paths[4];
-	double		posx; //position x du joueur
-	double		posy; //position y du joueur
-	double		dirx; //vecteur de direction (commence à -1 pour N, 1 pour S, 0 sinon)
-	double		diry; //vecteur de direction (commence à -1 pour W, 1 pour E, 0 sinon)
-	double		planx; //vecteur du plan (commence à 0.66 pour E, -0.66 pour W, 0 sinon)
-	double		plany; //vecteur du plan (commence à 0.66 pour N, -0.66 pour S, 0 sinon)
-	double		raydirx; //calcul de direction x du rayon
-	double		raydiry; //calcul de direction y du rayon
-	double		camerax; //point x sur la plan camera : Gauche ecran = -1, milieu = 0, droite = 1
-	int		mapx; // coordonée x du carré dans lequel est pos
-	int		mapy; // coordonnée y du carré dans lequel est pos
-	double		sidedistx; //distance que le rayon parcours jusqu'au premier point d'intersection vertical (=un coté x)
-	double		sidedisty; //distance que le rayon parcours jusqu'au premier point d'intersection horizontal (= un coté y)
-	double		deltadistx; //distance que rayon parcours entre chaque point d'intersection vertical
-	double		deltadisty; //distance que le rayon parcours entre chaque point d'intersection horizontal
-	int		stepx; // -1 si doit sauter un carre dans direction x negative, 1 dans la direction x positive
-	int		stepy; // -1 si doit sauter un carre dans la direction y negative, 1 dans la direction y positive
-	int		hit; // 1 si un mur a ete touche, 0 sinon
-	int		side; // 0 si c'est un cote x qui est touche (vertical), 1 si un cote y (horizontal)
-	double		perpwalldist; // distance du joueur au mur
-	int		lineheight; //hauteur de la ligne a dessiner
-	int		drawstart; //position de debut ou il faut dessiner
-	int		drawend; //position de fin ou il faut dessiner
-	int		x; //permet de parcourir tous les rayons
+	double	posx;
+	double	posy;
+	double	dirx;
+	double	diry;
+	double	planx;
+	double	plany;
+	double	raydirx;
+	double	raydiry;
+	double	camerax;
+	int		mapx;
+	int		mapy;
+	double	sidedistx;
+	double	sidedisty;
+	double	deltadistx;
+	double	deltadisty;
+	int		stepx;
+	int		stepy;
+	int		hit;
+	int		side;
+	double	perpwalldist;
+	int		lineheight;
+	int		drawstart;
+	int		drawend;
+	int		x;
 	int		floor_colors[3];
 	int		ceiling_colors[3];
-}					t_ray;
+}			t_ray;
 
 typedef struct t_exec
 {
 	void	*mlx;
 	void	*window;
 	char	**final_map;
-	char 	letter;
+	char	letter;
 	t_img	img;
 	t_ray	ray;
 }			t_exec;
@@ -158,6 +157,6 @@ int			check_atoi_f(char *str, t_cub *cub);
 long long	ft_atoi(char *str);
 int			check_zero(t_cub *cub);
 char		**change_map2(char **map);
-void    ft_init(t_exec *exec, t_cub *cub);
+void		ft_init(t_exec *exec, t_cub *cub);
 
 #endif

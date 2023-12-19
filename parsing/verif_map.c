@@ -36,7 +36,6 @@ int	check_last_wall(t_cub *cub)
 	i--;
 	while (cub->maps_finish[i][j])
 	{
-		printf("IIIICCCIII---->>> %c\n", cub->maps_finish[i][j]);
 		if (cub->maps_finish[i][j] != '1')
 			return (1);
 		j++;
@@ -51,7 +50,6 @@ int	check_wall(t_cub *cub)
 
 	i = 0;
 	j = 0;
-	// printf("-----%s\n", cub->map2_bis[i]);
 	while (cub->maps_finish[i])
 	{
 		j = 0;
@@ -83,7 +81,6 @@ int	check_wall_end(t_cub *cub)
 		j--;
 		if (cub->maps_finish[i][j] != '1')
 		{
-			puts("je rentre2\n");
 			return (1);
 		}
 		i++;
@@ -156,7 +153,6 @@ char **change_map2(char **map)
 		nb = ft_strlen(map[i]);
 		if(nb > max)
 			max = nb;
-		// printf("ligne n %d  nb = %d >> %s\n", i, nb, map[i]);
 		i++;
 	}
 	final = malloc(sizeof(char **) * (i + 1));
@@ -164,7 +160,6 @@ char **change_map2(char **map)
 	nb = 0;
 	while (map[i])
 	{
-		// final[j] = malloc(sizeof(char *) * (max + 1));
 		final[j] = ft_strdup(map[i]);
 		k = 0;
 		if(ft_strlen(map[i]) < max)
@@ -188,8 +183,6 @@ char **change_map2(char **map)
 
 int	verif_map(t_cub *cub)
 {
-	// char **test;
-	
 	if (check_wall(&*cub) == 1)
 		return (1);
 	if (check_wall_end(&*cub) == 1)
@@ -203,15 +196,9 @@ int	verif_map(t_cub *cub)
 	if (check_size(&*cub) == 1)
 		return (1);
 	if (check_spaces(&*cub) == 1)
-	{
-		puts("TROU\n");
 		return (1);
-	}
 	if (check_zero(&*cub) == 1)
-	{
-		puts("TROU2\n");
 		return (1);
-	}
 	if (check_player(&*cub) == 1)
 		return (1);
 	return (0);

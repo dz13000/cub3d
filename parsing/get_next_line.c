@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 23:47:29 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/11/25 21:19:30 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/19 01:02:56 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,24 +80,3 @@ int	slen(char *str)
 	return (i);
 }
 
-// int main()
-// {
-// 	int fd;
-
-// 	fd = open("ok.txt", O_RDONLY);
-// 	char *str;
-// 	int i = 11890;
-// 	while (i--)
-// 	{
-// 		str = get_next_line(fd);
-// 		if(!str)
-// 		{
-// 			free(str);
-// 			break;
-// 		}
-//        		printf("%s", str);
-//        	 	free(str);
-// 	}
-//        //	free(str);
-// 	close(fd);
-// }
