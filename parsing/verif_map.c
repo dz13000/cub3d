@@ -173,6 +173,7 @@ char **change_map2(char **map)
 			}
 			tmp[k] = '\0';
 			final[j] = ft_strjoin(final[j], tmp);
+			free(tmp);
 		}
 		i++;
 		j++;

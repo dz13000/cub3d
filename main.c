@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 19:11:53 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/19 01:36:50 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/19 06:03:30 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,48 @@ char	*copy_map2(char **argv)
 	return (map);
 }
 
+void	all_free(t_cub *cub)
+{
+	int i;
+	
+	i = 0;
+	free(cub->map);
+	while (cub->map2[i])
+		i++;
+	while(i >= 0)
+	free(cub->map2[i--]);
+	free(cub->map2);
+	// free(cub->path_so);
+	// free(cub->path_no);
+	// free(cub->path_ea);
+	// free(cub->path_we);
+	free(cub->map_bis);
+	i = 0;
+	while(cub->map2_bis[i])
+		i++;
+	while(i >= 0)
+			free(cub->map2_bis[i--]);
+		free(cub->map2_bis);
+		i = 0;
+		while(cub->maps_finish[i])
+			i++;
+		i--;
+		while(i >= 0)
+		{
+			free(cub->maps_finish[i]);
+			i--;
+		}
+		free(cub->maps_finish);
+		free(cub->last_line);
+}
+
 int	main(int ac, char **argv, char **env)
 {
 	t_cub	cub = {0};
 	t_exec  exec = {0};
+	int i;
 	
+	i = 0;
 	// cub.count = 0;
 	if (!env)
 		return (1);
@@ -102,13 +139,25 @@ int	main(int ac, char **argv, char **env)
 		return (1);
 	//tt free sauf maps_finish et les chemins;
 
-	exec.final_map = cub.maps_finish;
-	int i = 0;
-	while (exec.final_map[i])
+	// exec.final_map = cub.maps_finish;
+	while (cub.maps_finish[i])
+		i++;
+	exec.final_map = malloc(sizeof(char **) * (i + 1));
+	i = 0;
+	while(cub.maps_finish[i])
 	{
-		printf("%s\n", exec.final_map[i]);
+		exec.final_map[i] = ft_strdup(cub.maps_finish[i]);
 		i++;
 	}
+	exec.final_map[i] = NULL;
+	all_free(&cub);
+	
+	// int i = 0;
+	// while (exec.final_map[i])
+	// {
+	// 	printf("%s\n", exec.final_map[i]);
+	// 	i++;
+	// }
 	ft_init(&exec, &cub);
 	return (0);
 }

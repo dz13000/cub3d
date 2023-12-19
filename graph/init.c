@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 10:37:17 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/18 23:16:57 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/19 05:56:59 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -393,10 +393,14 @@ void	load_texture(t_exec *exec)
 }
 void	define_texture(t_exec *exec, t_cub *cub)
 {
-	exec->ray.paths[0] = cub->path_ea; 
-	exec->ray.paths[1] = cub->path_no;
-	exec->ray.paths[2] = cub->path_we;
-	exec->ray.paths[3] = cub->path_so;
+	exec->ray.paths[0] = ft_strdup(cub->path_ea); 
+	exec->ray.paths[1] = ft_strdup(cub->path_no);
+	exec->ray.paths[2] = ft_strdup(cub->path_we);
+	exec->ray.paths[3] = ft_strdup(cub->path_so);
+	free(cub->path_so);
+	free(cub->path_no);
+	free(cub->path_ea);
+	free(cub->path_we);
 	exec->ray.floor_colors[0] = cub->f[0];
 	exec->ray.floor_colors[1] = cub->f[1];
 	exec->ray.floor_colors[2] = cub->f[2];
@@ -503,6 +507,7 @@ int	key_press(int key, t_exec *exec)
 	if (key == 65307 || key == 113)
 	{
 		//free
+		free_all(&*exec);
 		exit(0);
 	}
 	mlx_clear_window(&*exec->mlx, &*exec->window);
@@ -510,14 +515,48 @@ int	key_press(int key, t_exec *exec)
 	return (0);
 }
 
-int	free_all(t_exec *exec)
+void	free_mlx(t_exec *exec)
 {
 	int	i;
 
 	i = -1;
+	while (++i < HEIGHT)
+		free(exec->ray.buf[i]);
+	free(exec->ray.buf);
+	i = -1;
 	while (++i < 4)
-		free(exec->ray.paths[i]);
-	(void)exec;
+		free(exec->ray.texture[i]);
+	free(exec->ray.texture);
+	if (exec->img.img)
+		mlx_destroy_image(exec->mlx, exec->img.img);
+	mlx_clear_window(exec->mlx, exec->window);
+	mlx_destroy_window(exec->mlx, exec->window);
+	mlx_destroy_display(exec->mlx);
+	mlx_loop_end(exec->mlx);
+	free(exec->mlx);
+}
+
+int	free_all(t_exec *exec)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+		free(exec->ray.paths[i++]);
+	// free(exec->ray.paths[0]);
+	// free(exec->ray.paths[1]);
+	// free(exec->ray.paths[2]);
+	// free(exec->ray.paths[3]);
+	i = 0;
+		while(exec->final_map[i])
+			i++;
+		while(i >= 0)
+			free(exec->final_map[i--]);
+		free(exec->final_map);
+	// (void)exec;
+	if (exec->mlx)
+		free_mlx(&*exec);
+	 
 	exit(1);
 	return (0);
 }
@@ -528,6 +567,7 @@ void    ft_init(t_exec *exec, t_cub *cub)
     if(!exec->mlx)
     {
         //free exec;
+		free_all(&*exec);
         exit(1);
     }
     check_letter(&*exec);

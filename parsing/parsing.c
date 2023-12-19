@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 01:05:36 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/19 02:34:51 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/19 04:09:04 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -568,6 +568,7 @@ int	ft_parsing(char **argv, t_cub *cub)
 			free(cub->maps_finish[i--]);
 		free(cub->maps_finish);
 		free(cub->last_line);
+		//
 		puts("NNNOOOOOOOOOOOOONN\n");
 		exit(1);
 	}

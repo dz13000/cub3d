@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 19:22:35 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/19 02:05:51 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/19 04:55:41 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ typedef struct t_exec
 	char	letter;
 	t_img	img;
 	t_ray	ray;
+	t_cub	cub;
 }			t_exec;
 
 char		*get_next_line(int fd);
@@ -158,5 +159,6 @@ long long	ft_atoi(char *str);
 int			check_zero(t_cub *cub);
 char		**change_map2(char **map);
 void		ft_init(t_exec *exec, t_cub *cub);
+int			free_all(t_exec *exec);
 
 #endif
