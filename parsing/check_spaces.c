@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 01:50:51 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/19 00:51:00 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/21 09:35:44 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int	check_left(t_cub *cub, int i, int j)
 	}
 	return (0);
 }
+
 int	check_down(t_cub *cub, int i, int j)
 {
 	int	i2;
@@ -117,12 +118,12 @@ int	check_right(t_cub *cub, int i, int j)
 
 int	check_spaces(t_cub *cub)
 {
-	int i;
-	int j;
+	int	j;
+	int	i;
 
-	i = 1;
+	i = 0;
 	j = 0;
-	while (cub->maps_finish[i])
+	while (cub->maps_finish[++i])
 	{
 		j = 0;
 		while (cub->maps_finish[i][j])
@@ -140,7 +141,6 @@ int	check_spaces(t_cub *cub)
 			}
 			j++;
 		}
-		i++;
 	}
 	return (0);
 }

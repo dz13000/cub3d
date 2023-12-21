@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 01:46:52 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/01 02:12:11 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/21 09:36:17 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ int	check_player2(t_cub *cub)
 
 int	check_player(t_cub *cub)
 {
-	int i;
-	int j;
+	int	j;
+	int	i;
 
 	i = 0;
 	j = 0;

@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 19:22:35 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/21 05:28:16 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/21 11:22:07 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ int			check_left(t_cub *cub, int i, int j);
 int			check_down(t_cub *cub, int i, int j);
 int			check_right(t_cub *cub, int i, int j);
 int			verif_map(t_cub *cub);
-char		**split_map(char **tab);
+char		**split_map(char **tab, t_cub *cub);
 int			check_atoi_c(char *str, t_cub *cub);
 int			check_atoi_f(char *str, t_cub *cub);
 long long	ft_atoi(char *str);
@@ -168,6 +168,58 @@ char		*ft_strdup3(char *str);
 void		ft_check_id_parsing(t_cub *cub);
 void		free_2(t_cub *cub);
 void		free_1(t_cub *cub);
-void	check_f_utils(t_cub *cub, int *i, int *j);
+void		free_path(t_cub *cub);
+void		check_f_utils(t_cub *cub, int *i, int *j);
+int			check_c(t_cub *cub);
+void		check_c_utils(t_cub *cub, int *i, int *j);
+long long	ft_atoi(char *str);
+int			check_atoi_c(char *str, t_cub *cub);
+int			check_atoi_f(char *str, t_cub *cub);
+int			check_space_number(char *str);
+int			check_space_number2(char *str, int i);
+int			ft_check_nb(char *str, int i);
+void		ft_check_nb2(char *str, int i, int *nb);
+int			check_number(char *str);
+void		check_number2(char *str, int i, int *nb);
+int			check_char_line(char *str);
+int			ft_isdigit(int nb);
+int			check_virgule(char *str);
+int			check_we(t_cub *cub);
+void		check_we2(t_cub *cub, int *i, int *j);
+int			check_ea(t_cub *cub);
+void		check_ea2(t_cub *cub, int *i, int *j);
+int			check_so(t_cub *cub);
+void		check_so2(t_cub *cub, int *i, int *j);
+int			check_no(t_cub *cub);
+void		check_no2(t_cub *cub, int *i, int *j);
+void		grep_last_line(t_cub *cub);
+void		move_down(t_exec *exec);
+void		move_left(t_exec *exec);
+void		move_right(t_exec *exec);
+void		rotate_left(t_exec *exec);
+void		rotate_right(t_exec *exec);
+void		move_up(t_exec *exec);
+void		define_vector(t_exec *exec);
+void		malloc_map(t_exec *exec);
+void		load_image(t_exec *exec, int *texture, char *path, t_img *img);
+void		load_texture(t_exec *exec);
+void		define_texture(t_exec *exec, t_cub *cub);
+int			set_rgb(int rgb[3]);
+void		ceiling_or_floor(t_exec *exec, int x, int q);
+void		calc(t_exec *exec);
+void		draw(t_exec *exec);
+int			main_loop(t_exec *exec);
+void		on_draw(t_exec *exec, int x, int texNum, int texX);
+void		define_wallx(t_exec *exec, double *wallx, int *texnum, int x);
+int			choose_texture(t_exec *exec, int texNum);
+void		define_draw(t_exec *exec);
+void		define_side(t_exec *exec);
+void		define(t_ray *ray);
+void		init_values(t_exec *exec, int x);
+void		init_buff(t_exec *exec);
+void		view_letter(t_exec *exec);
+void		check_letter(t_exec *exec);
+void		check_letter2(t_exec *exec, int *i, int *j, int *nb);
+int			check_letter_e(t_exec *exec, int *i, int *j, int *nb);
 
 #endif

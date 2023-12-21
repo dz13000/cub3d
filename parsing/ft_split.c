@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 00:04:37 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/20 03:03:25 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/21 09:15:52 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ int	count_line(char *str)
 	}
 	return (j);
 }
+
 char	**ft_split(char const *s, char c)
 {
 	int k;

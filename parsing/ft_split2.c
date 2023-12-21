@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split2.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/21 09:16:21 by cabouzir          #+#    #+#             */
+/*   Updated: 2023/12/21 09:17:23 by cabouzir         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../cub3d.h"
 
@@ -70,9 +81,9 @@ char	**ft_decoupe2(char **tab, char *str, int k, char c)
 
 char	**ft_split2(char const *s, char c)
 {
-	int k;
-	char **tab;
-	char *str;
+	int		k;
+	char	**tab;
+	char	*str;
 
 	k = 0;
 	if (s == NULL)

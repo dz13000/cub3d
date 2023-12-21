@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 01:50:51 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/20 03:03:22 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/21 09:26:29 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int	check_left2(t_cub *cub, int i, int j)
 	}
 	return (0);
 }
+
 int	check_down2(t_cub *cub, int i, int j)
 {
 	int	i2;
@@ -115,39 +116,46 @@ int	check_right2(t_cub *cub, int i, int j)
 	return (0);
 }
 
-int	check_zero(t_cub *cub)
-{
-	int	i;
-	int	j;
+// int	check_zero_utils(t_cub *cub, int i, int j)
+// {
+// 	if (cub->test[i][j] == '0')
+// 	{
+// 		if (cub->test[i - 1][j] == 'v')
+// 			return (1);
+// 		if (cub->test[i + 1][j] == 'v')
+// 			return (1);
+// 		if (cub->test[i][j - 1] == 'v')
+// 			return (1);
+// 		if (cub->test[i][j + 1] == 'v')
+// 			return (1);
+// 	}
+// 	return (0);
+// }
 
-	i = 1;
-	j = 0;
-	cub->test = change_map2(cub->maps_finish);
-	while (cub->test[i])
-	{
-		j = 0;
-		while (cub->test[i][j])
-		{
-			if (cub->test[i][j] == '0')
-			{
-				if (cub->test[i - 1][j] == 'v')
-					return (1);
-				if (cub->test[i + 1][j] == 'v')
-					return (1);
-				if (cub->test[i][j - 1] == 'v')
-					return (1);
-				if (cub->test[i][j + 1] == 'v')
-					return (1);
-			}
-			j++;
-		}
-		i++;
-	}
-	while (i >= 0)
-	{
-		free(cub->test[i]);
-		i--;
-	}
-	free(cub->test);
-	return (0);
-}
+// int	check_zero(t_cub *cub)
+// {
+// 	int	i;
+// 	int	j;
+
+// 	i = 1;
+// 	j = 0;
+// 	cub->test = change_map2(cub->maps_finish);
+// 	while (cub->test[i])
+// 	{
+// 		j = 0;
+// 		while (cub->test[i][j])
+// 		{
+// 			if(check_zero_utils(&*cub, i, j) == 1)
+// 				return(1);
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// 	while (i >= 0)
+// 	{
+// 		free(cub->test[i]);
+// 		i--;
+// 	}
+// 	free(cub->test);
+// 	return (0);
+// }

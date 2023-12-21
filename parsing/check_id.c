@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 02:46:42 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/20 03:03:14 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/21 10:38:07 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,53 @@ int	verif_line2(char *tmp)
 	return (1);
 }
 
-char	**split_map(char **tab)
+void	free_err_map(t_cub *cub)
+{
+	int	i;
+
+	i = 0;
+	free(cub->map);
+	while (cub->map2[i])
+		i++;
+	while (i >= 0)
+		free(cub->map2[i--]);
+	free(cub->map2);
+	free_path(&*cub);
+	free(cub->map_bis);
+	i = 0;
+	while (cub->map2_bis[i])
+		i++;
+	while (i >= 0)
+		free(cub->map2_bis[i--]);
+	free(cub->map2_bis);
+	free(cub->last_line);
+}
+
+void	split_map2(char **tab, int *i, int *k)
+{
+	int	tmp;
+
+	tmp = 0;
+	while (tab[*i])
+		*i += 1;
+	*i -= 1;
+	while (*i >= 0)
+	{
+		tmp = *i;
+		if (verif_line2(tab[tmp]) == 0)
+			break ;
+		*i -= 1;
+	}
+	while (tab[*k])
+	{
+		tmp = *k;
+		if (verif_line2(tab[tmp]) == 0)
+			break ;
+		*k += 1;
+	}
+}
+
+char	**split_map(char **tab, t_cub *cub)
 {
 	int		i;
 	int		j;
@@ -163,20 +209,12 @@ char	**split_map(char **tab)
 	i = 0;
 	j = 0;
 	k = 0;
-	while (tab[i])
-		i++;
-	i--;
-	while (i >= 0)
+	split_map2(tab, &i, &k);
+	if (i < k)
 	{
-		if (verif_line2(tab[i]) == 0)
-			break ;
-		i--;
-	}
-	while (tab[k])
-	{
-		if (verif_line2(tab[k]) == 0)
-			break ;
-		k++;
+		free_err_map(&*cub);
+		printf("Map introuvable\n");
+		exit(1);
 	}
 	map = malloc(sizeof(char **) * ((i - k) + 2));
 	while (k <= i)
@@ -184,12 +222,6 @@ char	**split_map(char **tab)
 		map[j] = ft_strdup(tab[k]);
 		k++;
 		j++;
-	}
-	if (!map)
-	{
-		//tt free ici;
-		printf("Map introuvable\n");
-		exit(1);
 	}
 	map[j] = NULL;
 	return (map);
