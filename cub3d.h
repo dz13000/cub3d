@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 19:22:35 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/19 04:55:41 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/21 05:28:16 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,5 +160,14 @@ int			check_zero(t_cub *cub);
 char		**change_map2(char **map);
 void		ft_init(t_exec *exec, t_cub *cub);
 int			free_all(t_exec *exec);
+void		all_free(t_cub *cub);
+void		copy_map_utils(char *tmp, int *fd, t_cub *cub);
+int			check_last_line(char *tmp, t_cub *cub);
+int			ft_strlen3(char *str);
+char		*ft_strdup3(char *str);
+void		ft_check_id_parsing(t_cub *cub);
+void		free_2(t_cub *cub);
+void		free_1(t_cub *cub);
+void	check_f_utils(t_cub *cub, int *i, int *j);
 
 #endif

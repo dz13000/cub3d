@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 01:50:51 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/19 00:55:34 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/20 03:03:22 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,8 @@ int	check_right2(t_cub *cub, int i, int j)
 
 int	check_zero(t_cub *cub)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 1;
 	j = 0;
@@ -130,20 +130,20 @@ int	check_zero(t_cub *cub)
 		{
 			if (cub->test[i][j] == '0')
 			{
-				if(cub->test[i - 1][j] == 'v')
-					return(1);
-				if(cub->test[i + 1][j] == 'v')
-					return(1);
-				if(cub->test[i][j - 1] == 'v')
-					return(1);
-				if(cub->test[i][j + 1] == 'v')
-					return(1);
+				if (cub->test[i - 1][j] == 'v')
+					return (1);
+				if (cub->test[i + 1][j] == 'v')
+					return (1);
+				if (cub->test[i][j - 1] == 'v')
+					return (1);
+				if (cub->test[i][j + 1] == 'v')
+					return (1);
 			}
 			j++;
 		}
 		i++;
 	}
-	while(i >= 0)
+	while (i >= 0)
 	{
 		free(cub->test[i]);
 		i--;

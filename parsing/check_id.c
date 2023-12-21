@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 02:46:42 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/19 06:10:25 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/20 03:03:14 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,10 +133,7 @@ int	check_id(t_cub *cub)
 		i++;
 	}
 	if (cub->count == 6)
-	{
-		printf("--------------->good\n");
 		return (0);
-	}
 	return (1);
 }
 
@@ -181,7 +178,6 @@ char	**split_map(char **tab)
 			break ;
 		k++;
 	}
-	printf("----->>>%d\n", k);
 	map = malloc(sizeof(char **) * ((i - k) + 2));
 	while (k <= i)
 	{
@@ -189,7 +185,7 @@ char	**split_map(char **tab)
 		k++;
 		j++;
 	}
-	if(!map)
+	if (!map)
 	{
 		//tt free ici;
 		printf("Map introuvable\n");

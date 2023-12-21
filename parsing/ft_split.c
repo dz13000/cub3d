@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 00:04:37 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/11/26 18:47:32 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/20 03:03:25 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	**ft_decoupe(char **tab, char *str, int k, char c)
 		}
 		else
 		{
-			if (i != 0 && str[i - 1] == '\n' && str[i] == '\n' )
+			if (i != 0 && str[i - 1] == '\n' && str[i] == '\n')
 			{
 				tab[j] = malloc(sizeof(char) * 4);
 				if (!tab)
@@ -87,22 +87,22 @@ char	**ft_decoupe(char **tab, char *str, int k, char c)
 	return (tab);
 }
 
-int		count_line(char *str)
+int	count_line(char *str)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	j = 0;
 	i = 0;
 	if (!str)
-		return(0);
-	while(str[i])
+		return (0);
+	while (str[i])
 	{
-		if (i != 0 && str[i - 1] == '\n' && str[i] == '\n' )
+		if (i != 0 && str[i - 1] == '\n' && str[i] == '\n')
 			j++;
 		i++;
 	}
-	return(j);
+	return (j);
 }
 char	**ft_split(char const *s, char c)
 {
@@ -114,7 +114,8 @@ char	**ft_split(char const *s, char c)
 	if (s == NULL)
 		return (NULL);
 	str = (char *)s;
-	tab = malloc(sizeof(char *) * ((ft_strtab(str, c)) + (count_line(str)) + (1)));
+	tab = malloc(sizeof(char *) * ((ft_strtab(str, c)) + (count_line(str))
+				+ (1)));
 	if (!tab)
 		return (NULL);
 	return (ft_decoupe(tab, str, k, c));

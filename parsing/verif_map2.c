@@ -6,7 +6,7 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 01:24:47 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/01 02:12:30 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/21 02:01:41 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	ft_strlen(char *str)
 	}
 	return (i);
 }
+
 int	check_size(t_cub *cub)
 {
 	int	i;
@@ -60,8 +61,8 @@ int	ft_char(char c)
 
 int	check_char_map(t_cub *cub)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;

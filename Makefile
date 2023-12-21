@@ -9,8 +9,10 @@ SRCS =	parsing/get_next_line.c \
 		parsing/check_player.c \
 		parsing/check_spaces.c \
 		parsing/check_zero.c \
+		parsing/utils.c \
 		graph/init.c \
 		main.c \
+		free_utils.c \
 
 
 NAME = cub3D

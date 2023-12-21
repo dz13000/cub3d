@@ -6,56 +6,56 @@
 /*   By: cabouzir <cabouzir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 10:37:17 by cabouzir          #+#    #+#             */
-/*   Updated: 2023/12/19 05:56:59 by cabouzir         ###   ########.fr       */
+/*   Updated: 2023/12/20 03:03:06 by cabouzir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void    check_letter(t_exec *exec)
+void	check_letter(t_exec *exec)
 {
-    int i;
-    int j;
-	int nb;
+	int	i;
+	int	j;
+	int	nb;
 
-    i = 0;
-    j = 0;
+	i = 0;
+	j = 0;
 	nb = 0;
-    while(exec->final_map[i])
-    {
-        j = 0;
-        while(exec->final_map[i][j])
-        {
-            if(exec->final_map[i][j] == 'N')
+	while (exec->final_map[i])
+	{
+		j = 0;
+		while (exec->final_map[i][j])
+		{
+			if (exec->final_map[i][j] == 'N')
 			{
-                exec->letter = 'N';
+				exec->letter = 'N';
 				nb++;
-				break;
+				break ;
 			}
-            if(exec->final_map[i][j] == 'S')
+			if (exec->final_map[i][j] == 'S')
 			{
-                exec->letter = 'S';
+				exec->letter = 'S';
 				nb++;
-				break;
+				break ;
 			}
-            if(exec->final_map[i][j] == 'W')
+			if (exec->final_map[i][j] == 'W')
 			{
-                exec->letter = 'W';
+				exec->letter = 'W';
 				nb++;
-				break;
+				break ;
 			}
-            if(exec->final_map[i][j] == 'E')
+			if (exec->final_map[i][j] == 'E')
 			{
-                exec->letter = 'E';
+				exec->letter = 'E';
 				nb++;
-				break;
+				break ;
 			}
-            j++;
-        }
-		if(nb == 1)
-			break;
-        i++;
-    }
+			j++;
+		}
+		if (nb == 1)
+			break ;
+		i++;
+	}
 	exec->ray.posx = (double)i;
 	exec->ray.posy = (double)j;
 }
@@ -301,9 +301,9 @@ int	main_loop(t_exec *exec)
 	return (0);
 }
 
-void    define_vector(t_exec *exec)
+void	define_vector(t_exec *exec)
 {
-    if (exec->letter == 'N')
+	if (exec->letter == 'N')
 	{
 		exec->ray.planx = 0;
 		exec->ray.plany = 0.66;
@@ -322,7 +322,7 @@ void    define_vector(t_exec *exec)
 	{
 		exec->ray.planx = 0.66;
 		exec->ray.plany = 0;
-    }
+	}
 }
 
 void	malloc_map(t_exec *exec)
@@ -334,17 +334,16 @@ void	malloc_map(t_exec *exec)
 	exec->ray.buf = malloc(sizeof(int **) * HEIGHT);
 	exec->ray.texture = malloc(sizeof(int **) * 4);
 	while (i < HEIGHT)
-    {
+	{
 		exec->ray.buf[i] = malloc(sizeof(int *) * WIDTH + 1);
-        i++;
-    }
+		i++;
+	}
 	i = 0;
 	while (i < 4)
-    {
-		exec->ray.texture[i] = malloc(sizeof(int *) * (64
-					* 64));
-        i++;
-    }
+	{
+		exec->ray.texture[i] = malloc(sizeof(int *) * (64 * 64));
+		i++;
+	}
 	i = -1;
 	while (++i < 4)
 	{
@@ -369,8 +368,8 @@ void	load_image(t_exec *exec, int *texture, char *path, t_img *img)
 		//free
 		exit(1);
 	}
-	img->addr = (int *)mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->size_l,
-			&img->endian);
+	img->addr = (int *)mlx_get_data_addr(img->img, &img->bits_per_pixel,
+			&img->size_l, &img->endian);
 	while (++y < img->img_height)
 	{
 		x = -1;
@@ -382,18 +381,14 @@ void	load_image(t_exec *exec, int *texture, char *path, t_img *img)
 
 void	load_texture(t_exec *exec)
 {
-	load_image(exec, exec->ray.texture[0], exec->ray.paths[0],
-		&exec->img);
-	load_image(exec, exec->ray.texture[1], exec->ray.paths[1],
-		&exec->img);
-	load_image(exec, exec->ray.texture[2], exec->ray.paths[2],
-		&exec->img);
-	load_image(exec, exec->ray.texture[3], exec->ray.paths[3],
-		&exec->img);
+	load_image(exec, exec->ray.texture[0], exec->ray.paths[0], &exec->img);
+	load_image(exec, exec->ray.texture[1], exec->ray.paths[1], &exec->img);
+	load_image(exec, exec->ray.texture[2], exec->ray.paths[2], &exec->img);
+	load_image(exec, exec->ray.texture[3], exec->ray.paths[3], &exec->img);
 }
 void	define_texture(t_exec *exec, t_cub *cub)
 {
-	exec->ray.paths[0] = ft_strdup(cub->path_ea); 
+	exec->ray.paths[0] = ft_strdup(cub->path_ea);
 	exec->ray.paths[1] = ft_strdup(cub->path_no);
 	exec->ray.paths[2] = ft_strdup(cub->path_we);
 	exec->ray.paths[3] = ft_strdup(cub->path_so);
@@ -461,8 +456,8 @@ void	rotate_left(t_exec *exec)
 	double	oldplanex;
 
 	olddirx = exec->ray.dirx;
-	exec->ray.dirx = exec->ray.dirx * cos(exec->ray.rotspeed)
-		- exec->ray.diry * sin(exec->ray.rotspeed);
+	exec->ray.dirx = exec->ray.dirx * cos(exec->ray.rotspeed) - exec->ray.diry
+		* sin(exec->ray.rotspeed);
 	exec->ray.diry = olddirx * sin(exec->ray.rotspeed) + exec->ray.diry
 		* cos(exec->ray.rotspeed);
 	oldplanex = exec->ray.planx;
@@ -478,17 +473,16 @@ void	rotate_right(t_exec *exec)
 	double	oldplanex;
 
 	olddirx = exec->ray.dirx;
-	exec->ray.dirx = exec->ray.dirx * cos(-exec->ray.rotspeed)
-		- exec->ray.diry * sin(-exec->ray.rotspeed);
+	exec->ray.dirx = exec->ray.dirx * cos(-exec->ray.rotspeed) - exec->ray.diry
+		* sin(-exec->ray.rotspeed);
 	exec->ray.diry = olddirx * sin(-exec->ray.rotspeed) + exec->ray.diry
 		* cos(-exec->ray.rotspeed);
 	oldplanex = exec->ray.planx;
 	exec->ray.planx = exec->ray.planx * cos(-exec->ray.rotspeed)
 		- exec->ray.plany * sin(-exec->ray.rotspeed);
-	exec->ray.plany = oldplanex * sin(-exec->ray.rotspeed)
-		+ exec->ray.plany * cos(-exec->ray.rotspeed);
+	exec->ray.plany = oldplanex * sin(-exec->ray.rotspeed) + exec->ray.plany
+		* cos(-exec->ray.rotspeed);
 }
-
 
 int	key_press(int key, t_exec *exec)
 {
@@ -548,43 +542,43 @@ int	free_all(t_exec *exec)
 	// free(exec->ray.paths[2]);
 	// free(exec->ray.paths[3]);
 	i = 0;
-		while(exec->final_map[i])
-			i++;
-		while(i >= 0)
-			free(exec->final_map[i--]);
-		free(exec->final_map);
+	while (exec->final_map[i])
+		i++;
+	while (i >= 0)
+		free(exec->final_map[i--]);
+	free(exec->final_map);
 	// (void)exec;
 	if (exec->mlx)
 		free_mlx(&*exec);
-	 
 	exit(1);
 	return (0);
 }
 
-void    ft_init(t_exec *exec, t_cub *cub)
+void	ft_init(t_exec *exec, t_cub *cub)
 {
-    exec->mlx = mlx_init();
-    if(!exec->mlx)
-    {
-        //free exec;
+	exec->mlx = mlx_init();
+	if (!exec->mlx)
+	{
+		//free exec;
 		free_all(&*exec);
-        exit(1);
-    }
-    check_letter(&*exec);
-    view_letter(&*exec);
-    define_vector(&*exec);
-    exec->ray.re_buf = 1;
-    malloc_map(&*exec);
-    exec->ray.movespeed = 0.5;
-    exec->ray.rotspeed = 0.09;
+		exit(1);
+	}
+	check_letter(&*exec);
+	view_letter(&*exec);
+	define_vector(&*exec);
+	exec->ray.re_buf = 1;
+	malloc_map(&*exec);
+	exec->ray.movespeed = 0.5;
+	exec->ray.rotspeed = 0.09;
 	exec->window = mlx_new_window(exec->mlx, WIDTH, HEIGHT, "cub3d");
-    //donner les  chemins des textures
+	//donner les  chemins des textures
 	define_texture(&*exec, &*cub);
 	load_texture(&*exec);
 	exec->img.img = mlx_new_image(exec->mlx, WIDTH, HEIGHT);
 	exec->img.addr = (int *)mlx_get_data_addr(exec->img.img,
-			&exec->img.bits_per_pixel, &exec->img.size_l,
-			&exec->img.endian);
+												&exec->img.bits_per_pixel,
+												&exec->img.size_l,
+												&exec->img.endian);
 	main_loop(&*exec);
 	mlx_hook(exec->window, 0, 1L << 0, &key_press, &*exec);
 	mlx_hook(exec->window, 17, 0, &free_all, &*exec);

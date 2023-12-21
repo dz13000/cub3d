@@ -78,7 +78,7 @@ char	**ft_split2(char const *s, char c)
 	if (s == NULL)
 		return (NULL);
 	str = (char *)s;
-	tab = malloc(sizeof(char *) * ((ft_strtab2(str, c)) +  (1)));
+	tab = malloc(sizeof(char *) * ((ft_strtab2(str, c)) + (1)));
 	if (!tab)
 		return (NULL);
 	return (ft_decoupe2(tab, str, k, c));
